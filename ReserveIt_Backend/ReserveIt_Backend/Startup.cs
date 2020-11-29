@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReserveIt_backend
+namespace ReserveIt_Backend
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace ReserveIt_backend
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReserveIt_backend", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReserveIt_Backend", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace ReserveIt_backend
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReserveIt_backend v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReserveIt_Backend v1"));
             }
 
             app.UseHttpsRedirection();

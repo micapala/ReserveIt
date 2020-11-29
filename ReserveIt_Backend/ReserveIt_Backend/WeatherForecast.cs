@@ -1,6 +1,6 @@
 using System;
 
-namespace ReserveIt_backend
+namespace ReserveIt_Backend
 {
     public class WeatherForecast
     {

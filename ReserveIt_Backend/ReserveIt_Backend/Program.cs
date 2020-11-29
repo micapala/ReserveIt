@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReserveIt_backend
+namespace ReserveIt_Backend
 {
     public class Program
     {

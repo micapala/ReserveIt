@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReserveIt_backend.Controllers
+namespace ReserveIt_Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
