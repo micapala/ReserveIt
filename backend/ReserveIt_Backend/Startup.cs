@@ -24,7 +24,7 @@ namespace ReserveIt_Backend
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        //readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public Startup(IConfiguration configuration)
         {
@@ -113,7 +113,7 @@ namespace ReserveIt_Backend
         {
             var testUser1 = new Models.User
             {
-                Login = "login",
+                Username = "login",
                 Password = "password",
                 Name = "Imie",
                 Surname = "Nazwisko",

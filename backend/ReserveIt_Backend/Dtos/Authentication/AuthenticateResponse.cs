@@ -11,7 +11,7 @@ namespace ReserveIt_Backend.Dtos.Authentication
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Login { get; set; }
+        public string Username { get; set; }
         public string Token { get; set; }
 
 
@@ -20,7 +20,7 @@ namespace ReserveIt_Backend.Dtos.Authentication
             Id = user.Id;
             Name = user.Name;
             Surname = user.Surname;
-            Login = user.Login;
+            Username = user.Username;
             Token = token;
         }
     }

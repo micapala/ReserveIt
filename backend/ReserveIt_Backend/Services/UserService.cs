@@ -29,7 +29,7 @@ namespace ReserveIt_Backend.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _repository.GetAll().SingleOrDefault(x => x.Login == model.Login && x.Password == model.Password);
+            var user = _repository.GetAll().SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
             if (user == null) return null;
 

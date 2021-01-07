@@ -9,7 +9,7 @@ namespace ReserveIt_Backend.Dtos.Authentication
     public class AuthenticateRequest
     {
         [Required]
-        public string Login { get; set; }
+        public string Username { get; set; }
 
         [Required]
         public string Password { get; set; }

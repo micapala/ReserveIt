@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using ReserveIt_Backend.Dtos.Authentication;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using ReserveIt_Backend.Helpers;
 
 namespace ReserveIt_Backend.Controllers
@@ -19,6 +18,7 @@ namespace ReserveIt_Backend.Controllers
         public UsersController(IUserService userService)
         {
             this._userService = userService;
+
         }
 
         [HttpPost("authenticate")]

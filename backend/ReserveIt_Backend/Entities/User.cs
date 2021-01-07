@@ -11,7 +11,7 @@ namespace ReserveIt_Backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public String Login { get; set; }
+        public String Username { get; set; }
 
         [JsonIgnore]
         public string Password { get; set; }
