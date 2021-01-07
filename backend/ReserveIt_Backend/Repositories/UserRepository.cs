@@ -11,12 +11,12 @@ namespace ReserveIt_Backend.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IServiceScope _scope;
-        private readonly UsersDatabaseContext _databaseContext;
+        private readonly ApiContext _databaseContext;
 
         public UserRepository(IServiceProvider services)
         {
             _scope = services.CreateScope();
-            _databaseContext = _scope.ServiceProvider.GetRequiredService<UsersDatabaseContext>();
+            _databaseContext = _scope.ServiceProvider.GetRequiredService<ApiContext>();
         }
 
         public async Task<bool> Create(User user)
@@ -35,6 +35,12 @@ namespace ReserveIt_Backend.Repositories
         public IQueryable<User> GetAll()
         {
             var result = _databaseContext.Users;
+            return result;
+        }
+
+        public User GetById(int Id)
+        {
+            var result = _databaseContext.Users.Find(Id);
             return result;
         }
     }

@@ -11,5 +11,7 @@ namespace ReserveIt_Backend.Repositories.Interfaces
         IQueryable<User> GetAll();
 
         Task<bool> Create(User user);
+
+        User GetById(int Id);
     }
 }

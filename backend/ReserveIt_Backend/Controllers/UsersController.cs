@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ReserveIt_Backend;
+using ReserveIt_Backend.Dtos.Authentication;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using ReserveIt_Backend.Helpers;
 
 namespace ReserveIt_Backend.Controllers
 {
@@ -23,6 +21,18 @@ namespace ReserveIt_Backend.Controllers
             this._userService = userService;
         }
 
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _userService.Authenticate(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
+        }
+
+        
         [HttpPost("create")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

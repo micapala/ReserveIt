@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -18,6 +17,8 @@ using ReserveIt_Backend.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using ReserveIt_Backend.Repositories;
 using ReserveIt_Backend.Services;
+using ReserveIt_Backend.Helpers;
+using Microsoft.Extensions.Logging;
 
 namespace ReserveIt_Backend
 {
@@ -33,6 +34,9 @@ namespace ReserveIt_Backend
         private static void ConfigureTransientServices(IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IReservationService, ReservationService>();
+            services.AddTransient<IBandService, BandService>();
+            services.AddTransient<IConcertService, ConcertService>();
         }
 
         private static void ConfigureRepositories(IServiceCollection services)
@@ -50,23 +54,25 @@ namespace ReserveIt_Backend
 
             ConfigureTransientServices(services);
             ConfigureRepositories(services);
-            services.AddDbContext<UsersDatabaseContext>(opt => opt.UseInMemoryDatabase(databaseName: "ReserveIt"));
+            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase(databaseName: "ReserveIt"));
+
+            services.AddControllers();
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+
+            services.AddCors();
 
             services.AddMvc();
 
-            services.AddCors(options =>
+            services.AddLogging(loggingBuilder =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("https://localhost:8080",
-                                                           "http://localhost:8080",
-                                                           "https://localhost:44353",
-                                                           "http://localhost:44353").AllowAnyMethod().AllowAnyHeader();
-                                  });
+                loggingBuilder.AddConfiguration(Configuration.GetSection("Logging"));
+                loggingBuilder.AddConsole();
+                loggingBuilder.AddDebug();
             });
 
-           // services.AddControllers();
+            // services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReserveIt_Backend", Version = "v1" });
@@ -74,7 +80,7 @@ namespace ReserveIt_Backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -88,15 +94,35 @@ namespace ReserveIt_Backend
             app.UseCookiePolicy();
 
             app.UseRouting();
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(x => x.MapControllers());
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                endpoints.MapControllers();
-            });
+                var context = serviceScope.ServiceProvider.GetService<ApiContext>();
+                AddTestData(context);
+            }
 
+        }
 
+        private static void AddTestData(ApiContext context)
+        {
+            var testUser1 = new Models.User
+            {
+                Login = "login",
+                Password = "password",
+                Name = "Imie",
+                Surname = "Nazwisko",
+                Email = "asd@asd.pl"
+            };
 
+            context.Users.Add(testUser1);
+
+            context.SaveChanges();
         }
     }
 }
