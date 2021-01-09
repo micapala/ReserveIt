@@ -1,5 +1,6 @@
 <template>
   <div class="jumbotron">
+  <NavBar></NavBar>
     <div class="container">
       <div class="row">
         <div class="col-sm-6 offset-sm-3">
@@ -14,6 +15,8 @@
 </template>
 
 <script>
+import NavBar from "../navbar/NavBar"
+
 export default {
   name: "app",
   computed: {
@@ -25,6 +28,7 @@ export default {
     $route() {
       this.$store.dispatch("alert/clear");
     }
-  }
+  },
+  components: { NavBar }
 };
 </script>
