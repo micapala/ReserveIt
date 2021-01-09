@@ -16,7 +16,7 @@ export const authentication = {
       userService.login(username, password).then(
         user => {
           commit("loginSuccess", user);
-          router.push("/");
+          router.push("/user");
         },
         error => {
           commit("loginFailure", error);

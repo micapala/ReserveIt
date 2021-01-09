@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="alert alert-info">
-      Username: test<br />
-      Password: test
+      Username: login<br />
+      Password: password
     </div>
     <h2>Login</h2>
     <form @submit.prevent="handleSubmit">
@@ -40,6 +40,9 @@
         />
       </div>
     </form>
+    <div class="Signin-button">
+      <router-link to="/sign" tag="button" class="btn btn-secondary">Sign in instead</router-link>
+    </div>
   </div>
 </template>
 

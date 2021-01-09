@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
     <div class="row">
+      <item title="Home" link="/"></item>
       <item title="Login" link="/login"></item>
-      <item title="2" link="/TODO"></item>
       <item title="3" link="/TODO"></item>
       <item title="4" link="/TODO"></item>
     </div>
