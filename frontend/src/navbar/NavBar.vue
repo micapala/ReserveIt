@@ -2,9 +2,10 @@
   <div class="navbar">
     <div class="row">
       <item title="Home" link="/"></item>
-      <item title="Login" link="/login"></item>
+      <item v-if="!user" title="Login" link="/login"></item>
       <item title="3" link="/TODO"></item>
-      <item title="4" link="/TODO"></item>
+      <item v-if="user" title="Logout" link="/login"></item>
+      <item v-if="admin" title="Admin" link="/admin"></item>
     </div>
   </div>
 </template>
@@ -14,7 +15,15 @@ import item from "./NavBar-item"
 
 export default {
   name: "NavBar",
-  components: { item }
+  components: { item },
+  computed: {
+    user() {
+      return this.$store.state.authentication.user;
+    },
+    admin() {
+      return this.$store.state.authentication.user;//TODO: proper admin check
+    }
+  }
 };
 </script>
 

@@ -104,9 +104,27 @@ namespace ReserveIt_Backend
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<ApiContext>();
+                AddAdmin(context);
                 AddTestData(context);
             }
 
+        }
+
+        private static void AddAdmin(ApiContext context)
+        {
+            var admin = new Models.User
+            {
+                Username = "admin",
+                Password = "admin",
+                Name = "Administrator",
+                Surname = "Serwisu",
+                Email = "kontakt@ReserveIt.pl",
+                Role = "Admin"
+            };
+
+            context.Users.Add(admin);
+
+            context.SaveChanges();
         }
 
         private static void AddTestData(ApiContext context)
