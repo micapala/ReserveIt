@@ -105,14 +105,14 @@ namespace ReserveIt_Backend
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<ApiContext>();
-                AddAdmin(context);
                 AddTestData(context);
             }
 
         }
 
-        private static void AddAdmin(ApiContext context)
+        private static void AddTestData(ApiContext context)
         {
+
             var admin = new Models.User
             {
                 Username = "admin",
@@ -125,11 +125,6 @@ namespace ReserveIt_Backend
 
             context.Users.Add(admin);
 
-            context.SaveChanges();
-        }
-
-        private static void AddTestData(ApiContext context)
-        {
             var testUser1 = new Models.User
             {
                 Username = "login",
