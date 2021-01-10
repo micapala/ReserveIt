@@ -55,7 +55,7 @@ namespace ReserveIt_Backend
 
             ConfigureTransientServices(services);
             ConfigureRepositories(services);
-            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase(databaseName: "ReserveIt"));
+            services.AddDbContext<ApiContext>();
 
             services.AddControllers();
 
@@ -143,9 +143,13 @@ namespace ReserveIt_Backend
 
             context.Bands.Add(testBand1);
 
+            context.SaveChanges();
+
+            Console.WriteLine(context.Bands.Single(name => name.Name == "Ryder and The Straight Bustas").Name);
+
             var concert1 = new Models.Concert
             {
-                Band = context.Bands.Where(b => b.Name == "Ryder and The Straight Bustas").SingleOrDefault(), //Doesn't work
+                Band = context.Bands.Single(b => b.Name == "Ryder and The Straight Bustas"), //Doesn't work
                 Date = new DateTime(2020, 12, 13),
                 TicketPrice = 10
             };
@@ -153,6 +157,7 @@ namespace ReserveIt_Backend
             context.Concerts.Add(concert1);
 
             context.SaveChanges();
+            Console.WriteLine(context.Concerts.Single(name => name.TicketPrice == 10).Band.Name);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ReserveIt_Backend.Models;
+﻿using ReserveIt_Backend.Dtos.Concert;
+using ReserveIt_Backend.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace ReserveIt_Backend.Services.Interfaces
 
         Concert GetById(int Id);
 
-        IQueryable<Concert> GetByDate(DateTime date);
+        IQueryable<ConcertByDateResponse> GetByDate(DateTime date);
     }
 }

@@ -7,8 +7,6 @@ namespace ReserveIt_Backend.dtos
 {
     public class CreateUserRequest
     {
-        public int id { get; set; }
-
         public String username { get; set; }
 
         public string password { get; set; }
@@ -18,7 +16,5 @@ namespace ReserveIt_Backend.dtos
         public String name { get; set; }
 
         public String surname { get; set; }
-
-        public String role { get; set; }
     }
 }

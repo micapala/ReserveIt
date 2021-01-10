@@ -4,7 +4,8 @@ import { authHeader } from "../_helpers";
 export const userService = {
   login,
   logout,
-  getAll
+  getAll,
+  register
 };
 
 function login(username, password) {
@@ -36,6 +37,16 @@ function getAll() {
   };
 
   return fetch(`/Users`, requestOptions).then(handleResponse);
+}
+
+function register(username, password, email, name, surname) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password, email, name, surname })
+  };
+
+  return fetch(`/Users/register`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

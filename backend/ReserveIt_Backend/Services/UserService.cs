@@ -12,10 +12,11 @@ using System.Security.Claims;
 using System.Text;
 using ReserveIt_Backend.Helpers;
 using System.Threading.Tasks;
+using ReserveIt_Backend.dtos;
 
 namespace ReserveIt_Backend.Services
 {
-    public class UserService : IUserService
+    public class UserService :  IUserService
     {
         private readonly IUserRepository _repository;
 
@@ -39,8 +40,17 @@ namespace ReserveIt_Backend.Services
             return new AuthenticateResponse(user, token);
         }
 
-        public async Task<User> Create(User user)
+        public async Task<User> Register(CreateUserRequest userRequest)
         {
+            User user = new User
+            {
+                Username = userRequest.username,
+                Password = userRequest.password,
+                Email = userRequest.email,
+                Name = userRequest.name,
+                Surname = userRequest.surname,
+                Role    = "User"
+            };
             var success = await _repository.Create(user);
             if (success)
                 return user;
@@ -69,7 +79,7 @@ namespace ReserveIt_Backend.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()), new Claim("role", user.Role.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

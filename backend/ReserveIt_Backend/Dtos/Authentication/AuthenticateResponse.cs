@@ -14,6 +14,8 @@ namespace ReserveIt_Backend.Dtos.Authentication
         public string Username { get; set; }
         public string Token { get; set; }
 
+        public string Role { get; set; }
+
 
         public AuthenticateResponse(User user, string token)
         {
@@ -21,6 +23,7 @@ namespace ReserveIt_Backend.Dtos.Authentication
             Name = user.Name;
             Surname = user.Surname;
             Username = user.Username;
+            Role = user.Role;
             Token = token;
         }
     }
