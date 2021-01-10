@@ -3,19 +3,23 @@
     <div class="header">
       <h1>ReserveIt</h1>
     </div>
-    <NavBar></NavBar>
+    <div v-if="loggedIn"><NavBar></NavBar></div>
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import NavBar from "../navbar/NavBar"
+import NavBar from "../navbar/NavBar";
 
 export default {
   name: "app",
   computed: {
     alert() {
       return this.$store.state.alert;
+    },
+    loggedIn() {
+      return this.$store.getters["authentication/isLoggedIn"];
     }
   },
   watch: {
@@ -23,24 +27,24 @@ export default {
       this.$store.dispatch("alert/clear");
     }
   },
-  components: { NavBar }
+  components: { NavBar },
 };
 </script>
 
 <style lang="css">
-:root{
-  --primary-color:    #bf616a;
+:root {
+  --primary-color: #bf616a;
   --background-color: #2b303b;
-  --font-color:       #eff1f5;
-  --navbar-color:     #65737e;
-  --green-color:      #a3be8c;
-  --purple-color:     #b48ead;
+  --font-color: #eff1f5;
+  --navbar-color: #65737e;
+  --green-color: #a3be8c;
+  --purple-color: #b48ead;
 }
 
 body {
   background-color: var(--background-color);
 }
-.header{
+.header {
   background-color: var(--primary-color);
   padding: 10px;
   text-align: center;

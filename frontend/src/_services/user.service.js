@@ -11,7 +11,7 @@ function login(username, password) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password })
   };
 
   return fetch(`/Users/authenticate`, requestOptions)
@@ -32,7 +32,7 @@ function logout() {
 function getAll() {
   const requestOptions = {
     method: "GET",
-    headers: authHeader(),
+    headers: authHeader()
   };
 
   return fetch(`/Users`, requestOptions).then(handleResponse);
