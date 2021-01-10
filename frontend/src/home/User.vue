@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="user">
     <h1>Hi {{ user.name }}!</h1>
     <p>You're logged in with Vue + Vuex & JWT!!</p>
     <h3>Users from secure api end point:</h3>
@@ -31,3 +31,9 @@ export default {
   }
 };
 </script>
+
+<style lang="css" scoped>
+.user{
+  color: var(--font-color);
+}
+</style>

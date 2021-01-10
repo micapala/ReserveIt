@@ -13,9 +13,14 @@ export default {
 
 <style lang="css">
 .navbar-item{
-  width: 80px;
-  height: 34px;
-  margin-left: 20px;
-  display: flex;
+  display: block;
+  color: var(--font-color);
+  text-align: center;
+  padding: .5rem 2rem;
+}
+
+.navbar-item:hover{
+  background-color: var(--primary-color);
+  color: black;
 }
 </style>
