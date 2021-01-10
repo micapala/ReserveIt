@@ -4,7 +4,7 @@ import Vuex from "vuex";
 import { alert } from "./alert.module";
 import { authentication } from "./authentication.module";
 import { users } from "./users.module";
-import { concertsByDate } from "./concerts.module";
+import { concertsByDate } from "./concertsbydate.module";
 
 Vue.use(Vuex);
 

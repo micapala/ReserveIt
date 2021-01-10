@@ -13,6 +13,8 @@ namespace ReserveIt_Backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public String Name { get; set; }
+
         public Band Band { get; set; }
 
         public DateTime Date { get; set; }

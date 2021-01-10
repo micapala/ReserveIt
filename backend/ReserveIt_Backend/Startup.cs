@@ -142,15 +142,37 @@ namespace ReserveIt_Backend
             };
 
             context.Bands.Add(testBand1);
+            context.SaveChanges();
 
             var concert1 = new Models.Concert
             {
+                Name = "Bustas",
                 Band = context.Bands.Where(b => b.Name == "Ryder and The Straight Bustas").SingleOrDefault(), //Doesn't work
-                Date = new DateTime(2020, 12, 13),
+                Date = new DateTime(2021, 1, 9),
                 TicketPrice = 10
             };
 
             context.Concerts.Add(concert1);
+
+            var concert2 = new Models.Concert
+            {
+                Name = "Test concert 2",
+                Band = context.Bands.Where(b => b.Name == "Ryder and The Straight Bustas").SingleOrDefault(), //Doesn't work
+                Date = new DateTime(2021, 1, 9),
+                TicketPrice = 10
+            };
+
+            context.Concerts.Add(concert2);
+
+            var concert3 = new Models.Concert
+            {
+                Name = "Koncert testowy 3",
+                Band = context.Bands.Where(b => b.Name == "Ryder and The Straight Bustas").SingleOrDefault(), //Doesn't work
+                Date = new DateTime(2021, 1, 9),
+                TicketPrice = 10
+            };
+
+            context.Concerts.Add(concert3);
 
             context.SaveChanges();
         }

@@ -23,7 +23,6 @@ namespace ReserveIt_Backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetByDate(string date)
         {
-            Console.WriteLine("elololololo-----------------------------"+date);
             var _date = new DateTime();
             if (DateTime.TryParse(date, out _date))
             {

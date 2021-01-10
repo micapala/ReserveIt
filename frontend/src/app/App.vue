@@ -37,7 +37,9 @@ export default {
   --green-color: #a3be8c;
   --purple-color: #b48ead;
 }
-
+.bg {
+  margin-bottom: 20%;
+}
 body {
   background-color: var(--background-color);
 }
