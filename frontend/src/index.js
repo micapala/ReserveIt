@@ -4,8 +4,6 @@ import { store } from "./_store";
 import { router } from "./_helpers";
 import App from "./app/App";
 
-// setup fake backend
-
 new Vue({
   el: "#app",
   router,

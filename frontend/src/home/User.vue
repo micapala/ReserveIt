@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.user{
+.user {
   color: var(--font-color);
 }
 </style>

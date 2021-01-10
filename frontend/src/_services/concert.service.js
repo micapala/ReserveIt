@@ -1,4 +1,5 @@
 //import config from "config";
+import { authHeader } from "../_helpers";
 
 export const concertService = {
   getByDate
@@ -7,8 +8,8 @@ export const concertService = {
 function getByDate(date) {
   const requestOptions = {
     method: "POST",
-    //headers: { "Content-Type": "application/json" },
-    body: date,
+    headers: authHeader(),
+    body: date
   };
 
   return fetch(`/Concert/byDate`, requestOptions).then(handleResponse);

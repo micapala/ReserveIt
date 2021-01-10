@@ -7,19 +7,19 @@
 <script>
 export default {
   name: "NavBar-item",
-  props: ['title', 'link']
+  props: ["title", "link"]
 };
 </script>
 
 <style lang="css">
-.navbar-item{
+.navbar-item {
   display: block;
   color: var(--font-color);
   text-align: center;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
 }
 
-.navbar-item:hover{
+.navbar-item:hover {
   background-color: var(--primary-color);
   color: black;
 }

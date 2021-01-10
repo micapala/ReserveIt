@@ -27,7 +27,7 @@ export const authentication = {
     logout({ commit }) {
       userService.logout();
       commit("logout");
-    },
+    }
   },
   mutations: {
     loginRequest(state, user) {
@@ -45,11 +45,6 @@ export const authentication = {
     logout(state) {
       state.status = {};
       state.user = null;
-    }
-  },
-  getters: {
-    isLoggedIn(state) {
-      return state.user;
     }
   }
 };

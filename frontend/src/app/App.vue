@@ -3,7 +3,7 @@
     <div class="header">
       <h1>ReserveIt</h1>
     </div>
-    <div v-if="loggedIn"><NavBar></NavBar></div>
+    <NavBar></NavBar>
 
     <router-view></router-view>
   </div>
@@ -17,9 +17,6 @@ export default {
   computed: {
     alert() {
       return this.$store.state.alert;
-    },
-    loggedIn() {
-      return this.$store.getters["authentication/isLoggedIn"];
     }
   },
   watch: {
@@ -27,7 +24,7 @@ export default {
       this.$store.dispatch("alert/clear");
     }
   },
-  components: { NavBar },
+  components: { NavBar }
 };
 </script>
 
