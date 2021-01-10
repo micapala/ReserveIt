@@ -4,6 +4,13 @@
     <div id=concerts>
       <h1>Concerts that day</h1>
       <p> {{ date }} </p>
+      <em v-if="concerts.loading">Loading concerts...</em>
+      <span v-if="concerts.error" class="text-danger">ERROR: {{ concerts.error }}</span>
+      <ul v-if="concerts.items">
+        <li v-for="concert in concerts.items" :key="concert.id">
+          {{ concert.TicketPrice }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -18,6 +25,11 @@ export default {
       date: "",
     };
   },
+  computed: {
+    concerts() {
+      return this.$store.state.concertsByDate.byDate;
+    }
+  }
 };
 </script>
 

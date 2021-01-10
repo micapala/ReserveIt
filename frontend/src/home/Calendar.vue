@@ -202,7 +202,6 @@ export default {
       this.date = date;
       this.formatedValue = this.date.format(this.format);
       this.$emit("change", this.formatedValue);
-      this.hide();
     },
     today() {
       this.select(moment());

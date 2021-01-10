@@ -42,6 +42,7 @@ namespace ReserveIt_Backend
         private static void ConfigureRepositories(IServiceCollection services)
         {
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IConcertRepository, ConcertRepository>();
         }
 
 
@@ -139,6 +140,22 @@ namespace ReserveIt_Backend
             };
 
             context.Users.Add(testUser1);
+
+            var testBand1 = new Models.Band
+            {
+                Name = "Ryder and The Straight Bustas"
+            };
+
+            context.Bands.Add(testBand1);
+
+            var concert1 = new Models.Concert
+            {
+                Band = context.Bands.Where(b => b.Name == "Ryder and The Straight Bustas").SingleOrDefault(), //Doesn't work
+                Date = new DateTime(2020, 12, 13),
+                TicketPrice = 10
+            };
+
+            context.Concerts.Add(concert1);
 
             context.SaveChanges();
         }
