@@ -1,17 +1,15 @@
 //import config from "config";
 
 export const concertService = {
-  getByDate
+  getByDate,
 };
 
 function getByDate(date) {
   const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ date })
+    method: "GET"
   };
 
-  return fetch(`/Concert/byDate`, requestOptions).then(handleResponse);
+  return fetch(`/Concert/byDate/${date}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

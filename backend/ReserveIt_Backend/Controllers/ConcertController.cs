@@ -19,10 +19,11 @@ namespace ReserveIt_Backend.Controllers
             this._concertService = concertService;
         }
 
-        [HttpPost("byDate")]
+        [HttpGet("byDate/{date}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetByDate(String date)
+        public IActionResult GetByDate(string date)
         {
+            Console.WriteLine("elololololo-----------------------------"+date);
             var _date = new DateTime();
             if (DateTime.TryParse(date, out _date))
             {

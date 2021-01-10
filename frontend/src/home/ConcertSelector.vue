@@ -10,7 +10,7 @@
       >
       <ul v-if="concerts.items">
         <li v-for="concert in concerts.items" :key="concert.id">
-          {{ concert.TicketPrice }}
+          {{ concert.ticketPrice }}
         </li>
       </ul>
     </div>

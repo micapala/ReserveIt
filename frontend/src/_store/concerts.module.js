@@ -7,8 +7,6 @@ export const concertsByDate = {
   },
   actions: {
     getByDate({ commit }, { date }) {
-      //date = "2021-01-21";
-      console.log({date});
       commit("getByDateRequest", { date });
 
       concertService.getByDate(date).then(
