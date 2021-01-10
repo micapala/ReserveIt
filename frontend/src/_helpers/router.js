@@ -17,12 +17,16 @@ export const router = new Router({
     { path: "/login", component: LoginPage },
     { path: "/sign", component: SignIn },
     { path: "/user", component: UserPage },
-    { path: "/admin", component: AdminPage },
+    {
+      path: "/admin",
+      component: AdminPage,
+      meta: { authorize: ["Admin"] }
+    },
     { path: "/concerts", component: ConcertSelector },
 
     // otherwise redirect to home
     { path: "*", redirect: "/" }
-  ]
+  ],
 });
 
 router.beforeEach((to, from, next) => {
@@ -33,6 +37,20 @@ router.beforeEach((to, from, next) => {
 
   if (authRequired && !loggedIn) {
     return next("/login");
+  }
+
+  const user = JSON.parse(loggedIn);
+  const encodedPayload = user.token.split(".")[1];
+  const payload = window.atob(encodedPayload);
+  const decodedJwtData = JSON.parse(payload);
+  const userRole = decodedJwtData["role"];
+
+  const { authorize } = to.meta;
+
+  if (authorize) {
+    if (authorize.length && !authorize.includes(userRole)) {
+      return next({ path: "/" });
+    }
   }
 
   next();

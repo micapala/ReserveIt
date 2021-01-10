@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using ReserveIt_Backend.Dtos.Concert;
 using ReserveIt_Backend.Helpers;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Repositories.Interfaces;
@@ -38,11 +39,19 @@ namespace ReserveIt_Backend.Services
             return result;
         }
 
-        public IQueryable<Concert> GetByDate(DateTime date)
+        public IQueryable<ConcertByDateResponse> GetByDate(DateTime date)
         {
             var result = _repository.GetByDate(date);
 
-            return result;
+            var concerts = from c in result
+                           select new ConcertByDateResponse()
+                           {
+                               BandName = c.Band.Name,
+                               TicketPrice = c.TicketPrice,
+                               Date = c.Date
+                           };
+
+            return concerts;
         }
 
         public Concert GetById(int Id)

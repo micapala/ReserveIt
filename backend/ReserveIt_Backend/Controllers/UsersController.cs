@@ -6,6 +6,7 @@ using ReserveIt_Backend.Dtos.Authentication;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Services.Interfaces;
 using ReserveIt_Backend.Helpers;
+using ReserveIt_Backend.dtos;
 
 namespace ReserveIt_Backend.Controllers
 {
@@ -33,12 +34,12 @@ namespace ReserveIt_Backend.Controllers
         }
 
         
-        [HttpPost("create")]
+        [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] User user)
+        public async Task<IActionResult> Create([FromBody] CreateUserRequest user)
         {
-            var result = await _userService.Create(user);
+            var result = await _userService.Register(user);
 
             Console.WriteLine(user);
 

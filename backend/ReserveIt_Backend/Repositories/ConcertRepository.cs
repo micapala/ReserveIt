@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ReserveIt_Backend.Dtos.Concert;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Repositories.Interfaces;
 using System;
@@ -40,6 +41,7 @@ namespace ReserveIt_Backend.Repositories
 
         public Concert GetById(int Id)
         {
+
             var result = _databaseContext.Concerts.Find(Id);
             return result;
         }
@@ -47,6 +49,8 @@ namespace ReserveIt_Backend.Repositories
         public IQueryable<Concert> GetByDate(DateTime date)
         {
             var result = _databaseContext.Concerts.Where(c => c.Date == date);
+
+
             
             return result;
         }

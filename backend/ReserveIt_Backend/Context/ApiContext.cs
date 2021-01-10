@@ -5,9 +5,9 @@ namespace ReserveIt_Backend
 {
     public class ApiContext : DbContext
     {
-        public ApiContext(DbContextOptions<ApiContext> options)
-            : base(options)
-        { }
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseInMemoryDatabase(databaseName: "ReserveIt");
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Band> Bands { get; set; }
@@ -15,5 +15,12 @@ namespace ReserveIt_Backend
         public DbSet<Concert> Concerts { get; set; }
 
         public DbSet<Reservation> Reservations { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Concert>()
+                .HasOne(b => b.Band)
+                .WithOne();
+        }
     }
 }

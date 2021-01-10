@@ -15,6 +15,7 @@ namespace ReserveIt_Backend.Models
 
         public String Name { get; set; }
 
+        [ForeignKey("BandId")]
         public Band Band { get; set; }
 
         public DateTime Date { get; set; }
