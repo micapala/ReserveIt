@@ -19,6 +19,7 @@ using ReserveIt_Backend.Repositories;
 using ReserveIt_Backend.Services;
 using ReserveIt_Backend.Helpers;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace ReserveIt_Backend
 {
@@ -43,6 +44,7 @@ namespace ReserveIt_Backend
         {
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IConcertRepository, ConcertRepository>();
+            services.AddSingleton<IBandRepository, BandRepository>();
         }
 
 
@@ -112,7 +114,6 @@ namespace ReserveIt_Backend
 
         private static void AddTestData(ApiContext context)
         {
-
             var admin = new Models.User
             {
                 Username = "admin",
@@ -124,6 +125,9 @@ namespace ReserveIt_Backend
             };
 
             context.Users.Add(admin);
+
+            AddRandomBands(context);
+            AddRandomConcerts(context);
 
             var testUser1 = new Models.User
             {
@@ -142,45 +146,63 @@ namespace ReserveIt_Backend
             };
 
             context.Bands.Add(testBand1);
-            context.SaveChanges();
 
             context.SaveChanges();
 
-            Console.WriteLine(context.Bands.Single(name => name.Name == "Ryder and The Straight Bustas").Name);
+            foreach (Models.Concert concert in context.Concerts) {
+                if(concert.Band == null)Console.WriteLine(concert.Name);
+            }
+        }
 
-            var concert1 = new Models.Concert
+        private static void AddRandomBands(ApiContext context)
+        {
+            String[] colors = { "Red", "Purple", "Blue", "Yellow", "Orange", "Maroon" };
+            String[] animals = { "Monkey", "Mastodon", "Gecko", "Elephant", "Possum", "Chimpanzee" };
+
+            foreach (String color in colors)
             {
-                Name = "Bustas",
-                Band = context.Bands.Where(b => b.Name == "Ryder and The Straight Bustas").SingleOrDefault(), //Doesn't work
-                Date = new DateTime(2021, 1, 9),
-
-                TicketPrice = 10
-            };
-
-            context.Concerts.Add(concert1);
-
-            var concert2 = new Models.Concert
-            {
-                Name = "Test concert 2",
-                Band = context.Bands.Where(b => b.Name == "Ryder and The Straight Bustas").SingleOrDefault(), //Doesn't work
-                Date = new DateTime(2021, 1, 9),
-                TicketPrice = 10
-            };
-
-            context.Concerts.Add(concert2);
-
-            var concert3 = new Models.Concert
-            {
-                Name = "Koncert testowy 3",
-                Band = context.Bands.Where(b => b.Name == "Ryder and The Straight Bustas").SingleOrDefault(), //Doesn't work
-                Date = new DateTime(2021, 1, 9),
-                TicketPrice = 10
-            };
-
-            context.Concerts.Add(concert3);
+                foreach (String animal in animals)
+                {
+                    var band = new Models.Band
+                    {
+                        Name = color + " " + animal,
+                    };
+                    context.Bands.Add(band);
+                }
+            }
 
             context.SaveChanges();
-            Console.WriteLine(context.Concerts.Single(name => name.TicketPrice == 10).Band.Name);
+        }
+
+        private static void AddRandomConcerts(ApiContext context)
+        {
+            String[] animals = { "Monkey", "Mastodon", "Gecko", "Elephant", "Possum", "Chimpanzee" };
+            String[] types = { "Festival", "Happening", "Concert", "Event" };
+
+            Random random = new Random();
+            for (var day = new DateTime(2021, 1, 18); day.Date <= new DateTime(2021, 1, 31); day = day.AddDays(1))
+            {
+                int num = random.Next(1, 5);
+                for (int i = 0; i < num; i++)
+                {
+                    int i1 = random.Next(0, animals.Length);
+                    int i2 = random.Next(0, types.Length);
+                    int bandID = random.Next(1, context.Bands.Count());
+                    int price = random.Next(10, 50);
+
+                    var concert = new Models.Concert
+                    {
+                        Name = animals[i1] + " " + types[i2],
+                        Band = context.Bands.Find(bandID),
+                        Date = day,
+                        TicketPrice = price
+                    };
+                    Debug.Assert(concert.Band != null);
+                    context.Concerts.Add(concert);
+                }
+            }
+
+            context.SaveChanges();
         }
     }
 }

@@ -1,7 +1,6 @@
 //import config from "config";
 
-export const concertService = {
-  getByDate,
+export const bandService = {
   getAll,
 };
 
@@ -10,15 +9,7 @@ function getAll() {
     method: "GET"
   };
 
-  return fetch(`/Concert`, requestOptions).then(handleResponse);
-}
-
-function getByDate(date) {
-  const requestOptions = {
-    method: "GET"
-  };
-
-  return fetch(`/Concert/byDate/${date}`, requestOptions).then(handleResponse);
+  return fetch(`/Band`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

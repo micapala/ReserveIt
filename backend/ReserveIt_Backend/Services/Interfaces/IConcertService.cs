@@ -9,11 +9,11 @@ namespace ReserveIt_Backend.Services.Interfaces
 {
     public interface IConcertService
     {
-        IQueryable<Concert> GetAll();
+        IQueryable<ConcertResponse> GetAll();
         Task<Concert> Create(Concert concert);
 
         Concert GetById(int Id);
 
-        IQueryable<ConcertByDateResponse> GetByDate(DateTime date);
+        IQueryable<ConcertResponse> GetByDate(DateTime date);
     }
 }

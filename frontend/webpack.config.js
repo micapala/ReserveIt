@@ -1,4 +1,5 @@
 var HtmlWebpackPlugin = require("html-webpack-plugin");
+var moment = require('moment');
 
 module.exports = {
   mode: "development",

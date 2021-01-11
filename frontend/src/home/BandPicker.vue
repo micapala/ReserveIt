@@ -1,0 +1,104 @@
+<template>
+  <div class="band_picker">
+    <div class="picker_header">
+      <div class="picker_title">Bands</div>
+    </div>
+    <div class="picker_body">
+      <div class="band_items" v-if="bands.items">
+        <div :class="['band_item', {selected: active(band)}]"
+             v-for="band in sortedBands" :key="band.id"
+             @click="select(band)">
+          {{ band.name }}
+        </div>
+      </div>
+    </div>
+    <div class="picker_footer"></div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "band_picker",
+  model: {
+    prop: "value",
+    event: "change",
+  },
+  data() {
+    return {
+      selected: null
+    };
+  },
+  computed: {
+    bands() {
+      return this.$store.state.bands.all;
+    },
+    sortedBands() {
+      return this.bands.items.sort((a,b) => {
+        let fa = a.name.toLowerCase(), fb = b.name.toLowerCase();
+        if (fa < fb) {
+          return -1;
+        } else {
+          return 1;
+        }
+        return 0;
+      })
+    }
+  },
+  created() {
+    this.$store.dispatch("bands/getAll");
+  },
+  methods: {
+    select(band) {
+      this.selected = band;
+      this.$emit("change", band);
+    },
+    active(band) {
+      return this.selected === band;
+    }
+  }
+};
+</script>
+
+<style lang="css" scoped>
+.band_picker {
+  margin-top: 2rem;
+  width: 260px;
+  top: 100%;
+  box-shadow: 0px 14px 45px rgba(0, 0, 0, 0.25),
+    0px 10px 18px rgba(0, 0, 0, 0.22);
+  background: var(--background-color);
+}
+.picker_header {
+  padding: 15px 10px;
+  background: var(--primary-color);
+  color: var(--font-color);
+  text-transform: uppercase;
+}
+.picker_title {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+.picker_body {
+  max-height: 520px;
+  overflow-y: scroll;
+  color: var(--font-color);
+}
+.band_item {
+  width: 90%;
+  text-align: center;
+  margin: 5px 0px 0px 10px;
+  padding: 5px 0px 5px;
+  background-color: var(--navbar-color);
+  display: block;
+  cursor: pointer;
+}
+.band_item.selected {
+  background-color: var(--primary-color);
+}
+.band_item:hover {
+  background-color: var(--purple-color)
+}
+.picker_footer {
+  padding: 10px;
+}
+</style>

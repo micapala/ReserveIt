@@ -39,17 +39,19 @@ router.beforeEach((to, from, next) => {
     return next("/login");
   }
 
-  const user = JSON.parse(loggedIn);
-  const encodedPayload = user.token.split(".")[1];
-  const payload = window.atob(encodedPayload);
-  const decodedJwtData = JSON.parse(payload);
-  const userRole = decodedJwtData["role"];
+  if (authRequired && loggedIn) {
+    const user = JSON.parse(loggedIn);
+    const encodedPayload = user.token.split(".")[1];
+    const payload = window.atob(encodedPayload);
+    const decodedJwtData = JSON.parse(payload);
+    const userRole = decodedJwtData["role"];
 
-  const { authorize } = to.meta;
+    const { authorize } = to.meta;
 
-  if (authorize) {
-    if (authorize.length && !authorize.includes(userRole)) {
-      return next({ path: "/" });
+    if (authorize) {
+      if (authorize.length && !authorize.includes(userRole)) {
+        return next({ path: "/" });
+      }
     }
   }
 

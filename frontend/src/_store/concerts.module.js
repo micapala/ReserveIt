@@ -1,5 +1,33 @@
 import { concertService } from "../_services";
 
+export const concerts = {
+  namespaced: true,
+  state: {
+    all: {}
+  },
+  actions: {
+    getAll({ commit }) {
+      commit("getAllRequest");
+
+      concertService.getAll().then(
+        concerts => commit("getAllSuccess", concerts),
+        error => commit("getAllFailure", error)
+      );
+    }
+  },
+  mutations: {
+    getAllRequest(state) {
+      state.all = { loading: true };
+    },
+    getAllSuccess(state, concerts) {
+      state.all = { items: concerts };
+    },
+    getAllFailure(state, error) {
+      state.all = { error };
+    }
+  }
+};
+
 export const concertsByDate = {
   namespaced: true,
   state: {

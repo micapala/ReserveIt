@@ -137,4 +137,8 @@ export default {
 };
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+h1#registration {
+  color: var(--font-color);
+}
+</style>

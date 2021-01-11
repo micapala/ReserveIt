@@ -32,20 +32,30 @@ namespace ReserveIt_Backend.Services
                 return null;
         }
 
-        public IQueryable<Concert> GetAll()
+        public IQueryable<ConcertResponse> GetAll()
         {
             var result = _repository.GetAll();
 
-            return result;
+            var concerts = from c in result
+                           select new ConcertResponse()
+                           {
+                               Name = c.Name,
+                               BandName = c.Band.Name,
+                               TicketPrice = c.TicketPrice,
+                               Date = c.Date
+                           };
+
+            return concerts;
         }
 
-        public IQueryable<ConcertByDateResponse> GetByDate(DateTime date)
+        public IQueryable<ConcertResponse> GetByDate(DateTime date)
         {
             var result = _repository.GetByDate(date);
 
             var concerts = from c in result
-                           select new ConcertByDateResponse()
+                           select new ConcertResponse()
                            {
+                               Name = c.Name,
                                BandName = c.Band.Name,
                                TicketPrice = c.TicketPrice,
                                Date = c.Date

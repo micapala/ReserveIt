@@ -1,7 +1,6 @@
 <template>
   <div>
     <img id="main" src="../../assets/concert.gif" />
-    <h1>You will ride eternal, shiny and chrome!</h1>
     <concertSelection></concertSelection>
   </div>
 </template>

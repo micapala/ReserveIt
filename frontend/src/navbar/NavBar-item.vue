@@ -17,6 +17,7 @@ export default {
   color: var(--font-color);
   text-align: center;
   padding: 0.5rem 2rem;
+  cursor: pointer;
 }
 
 .navbar-item:hover {

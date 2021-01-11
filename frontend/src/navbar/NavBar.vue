@@ -1,11 +1,11 @@
 <template>
   <div class="navbar">
     <item title="Home" link="/"></item>
+    <item title="Concerts" link="/concerts"></item>
     <item v-if="!user" title="Login" link="/login"></item>
-    <item title="3" link="/TODO"></item>
-    <item v-if="user" title="Logout" link="/login"></item>
+    <item v-if="user"  title="User" link="/user"></item>
+    <item v-if="user"  title="Logout" link="/login"></item>
     <item v-if="admin" title="Admin" link="/admin"></item>
-    <item title="concert" link="/concerts"></item>
   </div>
 </template>
 
