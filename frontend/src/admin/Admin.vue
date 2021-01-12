@@ -79,7 +79,7 @@
       </div>
       <div class="entity_footer">
         <button @click="">Create/Update</button>
-        <button @click="">Delete</button>
+        <button @click="handleDelete">Delete</button>
       </div>
     </div>
     <bandPicker v-model="band"></bandPicker>
@@ -101,7 +101,8 @@ export default {
     bandName: null,
     price: null,
     date: null,
-    selected: "band"
+    selected: "band",
+    submitted: false
   }),
   watch: {
     band: function() {
@@ -117,10 +118,24 @@ export default {
       this.name = concert.name;
       this.bandName = concert.bandName;
       this.price = concert.ticketPrice;
-      this.date = concert.date;
+      this.date = concert.date.split('T')[0];
     }
   },
   methods: {
+    handleSubmit() {
+      this.submitted = true;
+      const { ID, name, bandName, price, date } = this;
+    },
+    handleDelete() {
+      this.submitted = true;
+      const { ID } = this;
+      if(ID) {
+        if(this.selected == "band")
+          this.$store.dispatch("bands/remove", { id: ID });
+        if(this.selected == "concert") {}
+          //this.$store.dispatch("concerts/remove", {ID});
+      }
+    },
     selectedBand() {
       this.selected = "band";
       this.clearForms();

@@ -12,6 +12,10 @@ namespace ReserveIt_Backend.Repositories.Interfaces
 
         Task<bool> Create(Band band);
 
+        Task<bool> Remove(Band band);
+
+        Task<bool> Update(Band band);
+
         Band GetById(int Id);
     }
 }

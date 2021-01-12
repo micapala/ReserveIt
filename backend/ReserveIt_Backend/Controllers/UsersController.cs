@@ -32,7 +32,6 @@ namespace ReserveIt_Backend.Controllers
 
             return Ok(response);
         }
-
         
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -40,8 +39,6 @@ namespace ReserveIt_Backend.Controllers
         public async Task<IActionResult> Create([FromBody] CreateUserRequest user)
         {
             var result = await _userService.Register(user);
-
-            Console.WriteLine(user);
 
             return CreatedAtAction(
                 nameof(GetAll),
