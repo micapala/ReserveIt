@@ -8,7 +8,6 @@
       <h1 v-if="selected == 'date'">Concerts on {{ date }}</h1>
       <h1 v-if="selected == 'band'">Concerts with {{ band.name }}</h1>
       <h4 v-if="filteredConcerts.length == 0">No concerts found</h4>
-      <!--em v-if="concerts.loading">Loading concerts...</em-->
       <span v-if="concerts.error" class="text-danger">
         ERROR: {{ concerts.error }}
       </span>
@@ -34,7 +33,7 @@ export default {
   components: { calendar, bandPicker,concertitem },
   data: () => ({
     date: "",
-    band: "",
+    band: null,
     selected: ""
   }),
   computed: {
@@ -44,7 +43,7 @@ export default {
     filteredConcerts() {
       if (this.selected == 'date') return this.concertsByDate(this.date);
       else if (this.selected == 'band') return this.concertsByBand(this.band.name);
-      else return null;
+      else return [];
     }
   },
   created() {
@@ -52,21 +51,15 @@ export default {
   },
   watch: {
     date: function() {
-      this.handleDateSelect();
-    },
-    band: function() {
-      this.handleBandSelect();
-    },
-  },
-  methods: {
-    handleDateSelect() {
       this.selected = "date";
       const { date } = this;
     },
-    handleBandSelect() {
+    band: function() {
       this.selected = "band";
       const { band } = this;
     },
+  },
+  methods: {
     concertsByDate(date) {
       return this.concerts.items.filter((item) => {
         return item.date.split('T')[0] == date;

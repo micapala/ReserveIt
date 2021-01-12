@@ -39,6 +39,7 @@ namespace ReserveIt_Backend.Services
             var concerts = from c in result
                            select new ConcertResponse()
                            {
+                               Id = c.Id,
                                Name = c.Name,
                                BandName = c.Band.Name,
                                TicketPrice = c.TicketPrice,
@@ -55,6 +56,7 @@ namespace ReserveIt_Backend.Services
             var concerts = from c in result
                            select new ConcertResponse()
                            {
+                               Id = c.Id,
                                Name = c.Name,
                                BandName = c.Band.Name,
                                TicketPrice = c.TicketPrice,

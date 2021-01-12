@@ -7,12 +7,14 @@ namespace ReserveIt_Backend.Dtos.Concert
 {
     public class ConcertResponse
     {
+        public int Id { get; set; }
+
         public String Name { get; set; }
 
         public string BandName { get; set; }
 
         public DateTime Date { get; set; }
 
-        public int TicketPrice { get; set; }
+        public float TicketPrice { get; set; }
     }
 }

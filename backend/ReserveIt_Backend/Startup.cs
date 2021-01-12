@@ -156,8 +156,8 @@ namespace ReserveIt_Backend
 
         private static void AddRandomBands(ApiContext context)
         {
-            String[] colors = { "Red", "Purple", "Blue", "Yellow", "Orange", "Maroon" };
-            String[] animals = { "Monkey", "Mastodon", "Gecko", "Elephant", "Possum", "Chimpanzee" };
+            String[] colors = { "Red", "Purple", "Indigo", "Orange", "Maroon" };
+            String[] animals = { "Mastodon", "Gecko", "Elephant", "Possum", "Chimpanzee" };
 
             foreach (String color in colors)
             {
@@ -176,7 +176,13 @@ namespace ReserveIt_Backend
 
         private static void AddRandomConcerts(ApiContext context)
         {
-            String[] animals = { "Monkey", "Mastodon", "Gecko", "Elephant", "Possum", "Chimpanzee" };
+            String[] plants = { "Bee Balm Flower", "Bluebonnet", "Thistle", "Agapanthus", 
+                                "Banyan", "Kentia Palm", "Rosemary", "Baobab", "Nemesia", "Narcissus",
+                                "Clarkia", "Huckleberry", "Aspen", "Carrot", "Tulip", "Silene", "Primrose",
+                                "Bindweed", "Pansy", "Fellenwort", "Snowdrop", "Lucky Bamboo", "Cactus", "Lily",
+                                "Dumb Cane", "Cotton plant", "Daisy", "Shasta Daisy", "Veronica", "Fennel",
+                                "Gillyflower", "Rose", "Aspen", "Cotton plant", "Indian paintbrush", "Carrot",
+                                "Bleeding Heart", "Water Lily", "Vervain", "Cucumber", "Cornflower" };
             String[] types = { "Festival", "Happening", "Concert", "Event" };
 
             Random random = new Random();
@@ -185,14 +191,14 @@ namespace ReserveIt_Backend
                 int num = random.Next(1, 5);
                 for (int i = 0; i < num; i++)
                 {
-                    int i1 = random.Next(0, animals.Length);
+                    int i1 = random.Next(0, plants.Length);
                     int i2 = random.Next(0, types.Length);
                     int bandID = random.Next(1, context.Bands.Count());
-                    int price = random.Next(10, 50);
+                    float price = (float)random.Next(10, 50);
 
                     var concert = new Models.Concert
                     {
-                        Name = animals[i1] + " " + types[i2],
+                        Name = plants[i1] + " " + types[i2],
                         Band = context.Bands.Find(bandID),
                         Date = day,
                         TicketPrice = price

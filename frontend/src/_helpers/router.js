@@ -6,7 +6,7 @@ import UserPage from "../home/User";
 import ConcertSelector from "../home/ConcertSelector";
 import LoginPage from "../login/LoginPage";
 import SignIn from "../login/SignIn";
-import AdminPage from "../login/Admin";
+import AdminPage from "../admin/Admin";
 
 Vue.use(Router);
 
