@@ -78,7 +78,7 @@
         </form>
       </div>
       <div class="entity_footer">
-        <button @click="">Create/Update</button>
+        <button @click="handleSubmit">Create/Update</button>
         <button @click="handleDelete">Delete</button>
       </div>
     </div>
@@ -125,6 +125,20 @@ export default {
     handleSubmit() {
       this.submitted = true;
       const { ID, name, bandName, price, date } = this;
+      if(ID) {
+      // UPDATE
+        if(this.selected == "band" && name)
+          this.$store.dispatch("bands/update", {
+            id: ID,
+            name: name
+          });
+      } else {
+      // CREATE
+        if(this.selected == "band" && name)
+          this.$store.dispatch("bands/create", {
+            name: name
+          });
+      }
     },
     handleDelete() {
       this.submitted = true;
@@ -200,7 +214,7 @@ export default {
   color: black;
 }
 .entity_body {
-  height: 420px;
+  min-height: 420px;
 }
 .form-group {
   margin-left: 1rem;

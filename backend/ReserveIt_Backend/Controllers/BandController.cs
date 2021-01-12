@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReserveIt_Backend.Dtos;
 using ReserveIt_Backend.Dtos.band;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Services.Interfaces;
@@ -28,6 +29,9 @@ namespace ReserveIt_Backend.Controllers
         {
             var result = await _bandService.Create(request);
 
+            if (result == null)
+                return StatusCode(400);
+
             return CreatedAtAction(
                 nameof(GetAll),
                 new { id = result.Id }, result);
@@ -36,7 +40,7 @@ namespace ReserveIt_Backend.Controllers
         [HttpPost("remove")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Remove([FromBody] DeleteBandRequest request)
+        public async Task<IActionResult> Remove([FromBody] DeleteRequest request)
         {
             var result = await _bandService.Remove(request);
 
@@ -52,6 +56,9 @@ namespace ReserveIt_Backend.Controllers
         public async Task<IActionResult> Update([FromBody] Band band)
         {
             var result = await _bandService.Update(band);
+
+            if (result == null)
+                return StatusCode(400);
 
             return CreatedAtAction(
                 nameof(GetAll),

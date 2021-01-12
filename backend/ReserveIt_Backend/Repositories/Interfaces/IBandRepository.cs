@@ -17,5 +17,7 @@ namespace ReserveIt_Backend.Repositories.Interfaces
         Task<bool> Update(Band band);
 
         Band GetById(int Id);
+
+        public Band GetByName(String name);
     }
 }

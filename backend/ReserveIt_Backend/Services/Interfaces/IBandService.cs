@@ -1,4 +1,5 @@
-﻿using ReserveIt_Backend.Dtos.band;
+﻿using ReserveIt_Backend.Dtos;
+using ReserveIt_Backend.Dtos.band;
 using ReserveIt_Backend.Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace ReserveIt_Backend.Services.Interfaces
 
         Task<Band> Create(CreateBandRequest request);
 
-        Task<bool> Remove(DeleteBandRequest request);
+        Task<bool> Remove(DeleteRequest request);
 
         Task<Band> Update(Band band);
 

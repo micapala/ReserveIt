@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using ReserveIt_Backend.Dtos;
 using ReserveIt_Backend.Dtos.band;
 using ReserveIt_Backend.Helpers;
 using ReserveIt_Backend.Models;
@@ -40,6 +41,10 @@ namespace ReserveIt_Backend.Services
 
         async Task<Band> IBandService.Create(CreateBandRequest request)
         {
+            var identical = _repository.GetByName(request.Name);
+            if (identical != null)
+                return null;
+
             Band band = new Band
             {
                 Name = request.Name,
@@ -52,7 +57,7 @@ namespace ReserveIt_Backend.Services
                 return null;
         }
 
-        async Task<bool> IBandService.Remove(DeleteBandRequest request)
+        async Task<bool> IBandService.Remove(DeleteRequest request)
         {
             var band = _repository.GetById(request.Id);
 
@@ -63,6 +68,10 @@ namespace ReserveIt_Backend.Services
 
         async Task<Band> IBandService.Update(Band band)
         {
+            var identical = _repository.GetByName(band.Name);
+            if (identical != null)
+                return null;
+
             var success = await _repository.Update(band);
             if (success)
                 return band;

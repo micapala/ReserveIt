@@ -33,6 +33,30 @@ namespace ReserveIt_Backend.Repositories
             return success;
         }
 
+        public async Task<bool> Update(Concert concert)
+        {
+            _databaseContext.Concerts.Update(concert);
+
+            var numberOfItemsUpdated = await _databaseContext.SaveChangesAsync();
+
+            if (numberOfItemsUpdated == 1)
+                return true;
+
+            return false;
+        }
+
+        public async Task<bool> Remove(Concert concert)
+        {
+            _databaseContext.Concerts.Remove(concert);
+
+            var numberOfItemsDeleted = await _databaseContext.SaveChangesAsync();
+
+            if (numberOfItemsDeleted == 1)
+                return true;
+
+            return false;
+        }
+
         public IQueryable<Concert> GetAll()
         {
             var result = _databaseContext.Concerts;

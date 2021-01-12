@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using ReserveIt_Backend.Dtos;
 using ReserveIt_Backend.Dtos.Concert;
 using ReserveIt_Backend.Helpers;
 using ReserveIt_Backend.Models;
@@ -23,9 +24,47 @@ namespace ReserveIt_Backend.Services
             _repository = repository;
         }
 
-        public async Task<Concert> Create(Concert concert)
+        public async Task<Concert> Create(CreateConcertRequest request)
         {
+            //Band band = // TODO
+
+            Concert concert = new Concert
+            {
+                Name = request.Name,
+                //Band = band.name,
+                Date = request.Date,
+                TicketPrice = request.TicketPrice,
+            };
+
             var success = await _repository.Create(concert);
+            if (success)
+                return concert;
+            else
+                return null;
+        }
+
+        async Task<bool> IConcertService.Remove(DeleteRequest request)
+        {
+            var concert = _repository.GetById(request.Id);
+
+            var success = await _repository.Remove(concert);
+
+            return success;
+        }
+
+        public async Task<Concert> Update(UpdateConcertRequest request)
+        {
+            //Band band = context.bands.findByName()??? // TODO
+
+            Concert concert = new Concert
+            {
+                Name = request.Name,
+                //Band = band.name,
+                Date = request.Date,
+                TicketPrice = request.TicketPrice,
+            };
+
+            var success = await _repository.Update(concert);
             if (success)
                 return concert;
             else

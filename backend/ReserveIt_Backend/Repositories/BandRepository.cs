@@ -67,5 +67,11 @@ namespace ReserveIt_Backend.Repositories
             var result = _databaseContext.Bands.Find(Id);
             return result;
         }
+
+        public Band GetByName(String name)
+        {
+            var result = _databaseContext.Bands.Where(b => b.Name == name).SingleOrDefault();
+            return result;
+        }
     }
 }

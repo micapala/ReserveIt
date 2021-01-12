@@ -15,7 +15,7 @@ export const bands = {
         error => commit("getAllFailure", error)
       );
     },
-    create({ commit }, { name }) {
+    create({ commit, dispatch }, { name }) {
       commit("statusRequest");
 
       bandService.create(name).then(
@@ -26,7 +26,7 @@ export const bands = {
         error => commit("statusFailure", error)
       );
     },
-    update({ commit }, { id, name }) {
+    update({ commit, dispatch }, { id, name }) {
       commit("statusRequest");
 
       bandService.update(id, name).then(
