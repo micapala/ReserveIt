@@ -1,5 +1,6 @@
 ﻿using ReserveIt_Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using ReserveIt_Backend.Entities;
 
 namespace ReserveIt_Backend
 {
@@ -15,6 +16,8 @@ namespace ReserveIt_Backend
         public DbSet<Concert> Concerts { get; set; }
 
         public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

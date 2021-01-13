@@ -13,7 +13,7 @@ function getAll() {
     method: "GET"
   };
 
-  return fetch(`/Concert`, requestOptions).then(handleResponse);
+  return fetch(`/api/Concert`, requestOptions).then(handleResponse);
 }
 
 function getByDate(date) {
@@ -21,7 +21,7 @@ function getByDate(date) {
     method: "GET"
   };
 
-  return fetch(`/Concert/byDate/${date}`, requestOptions).then(handleResponse);
+  return fetch(`/api/Concert/byDate/${date}`, requestOptions).then(handleResponse);
 }
 
 function create(name, bandName, price, date) {
@@ -33,7 +33,7 @@ function create(name, bandName, price, date) {
 
   console.log(requestOptions);
 
-  return fetch('/Concert/create', requestOptions).then(handleResponse);
+  return fetch('/api/Concert/create', requestOptions).then(handleResponse);
 };
 
 function remove(id) {
@@ -43,7 +43,7 @@ function remove(id) {
     body: JSON.stringify({id})
   };
 
-  return fetch('/Concert/remove', requestOptions).then(handleResponse);
+  return fetch('/api/Concert/remove', requestOptions).then(handleResponse);
 };
 
 function update(id, name, bandName, price, date) {
@@ -53,7 +53,7 @@ function update(id, name, bandName, price, date) {
     body: JSON.stringify({id, name, bandName, price, date})
   };
 
-  return fetch('/Concert/update', requestOptions).then(handleResponse);
+  return fetch('/api/Concert/update', requestOptions).then(handleResponse);
 };
 
 function handleResponse(response) {

@@ -15,7 +15,7 @@ function login(username, password) {
     body: JSON.stringify({ username, password })
   };
 
-  return fetch(`/Users/authenticate`, requestOptions)
+  return fetch(`/api/Users/authenticate`, requestOptions)
     .then(handleResponse)
     .then(user => {
       if (user.token) {
@@ -36,7 +36,7 @@ function getAll() {
     headers: authHeader()
   };
 
-  return fetch(`/Users`, requestOptions).then(handleResponse);
+  return fetch(`/api/Users`, requestOptions).then(handleResponse);
 }
 
 function register(username, password, email, name, surname) {
@@ -46,7 +46,7 @@ function register(username, password, email, name, surname) {
     body: JSON.stringify({ username, password, email, name, surname })
   };
 
-  return fetch(`/Users/register`, requestOptions).then(handleResponse);
+  return fetch(`/api/Users/register`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -54,7 +54,6 @@ function handleResponse(response) {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
-        // auto logout if 401 response returned from api
         logout();
         location.reload(true);
       }

@@ -3,9 +3,9 @@
     <item title="Home" link="/"></item>
     <item title="Concerts" link="/concerts"></item>
     <item v-if="!user" title="Login" link="/login"></item>
-    <item v-if="user"  title="User" link="/user"></item>
-    <item v-if="user"  title="Logout" link="/login"></item>
     <item v-if="admin" title="Admin" link="/admin"></item>
+    <item v-if="user" title="Reservations" link="/reservations"></item>
+    <item v-if="user"  title="Logout" link="/login"></item>
   </div>
 </template>
 
@@ -17,10 +17,10 @@ export default {
   components: { item },
   computed: {
     user() {
-      return this.$store.state.authentication.user;
+      return this.$store.state.authentication.user.role == "User";
     },
     admin() {
-      return this.$store.state.authentication.user; //TODO: proper admin check
+      return this.$store.state.authentication.user.role == "Admin"; //TODO: proper admin check
     }
   }
 };

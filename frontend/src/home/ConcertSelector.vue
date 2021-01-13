@@ -17,6 +17,7 @@
           v-bind:name="concert.name"
           v-bind:price="concert.ticketPrice"
           v-bind:band_name="concert.bandName"
+          v-bind:id="concert.id"
           v-bind:key="concert.id"
         ></concertitem>
       </div>
@@ -30,7 +31,7 @@ import bandPicker from "./BandPicker";
 import concertitem from "./concert-item";
 
 export default {
-  components: { calendar, bandPicker,concertitem },
+  components: { calendar, bandPicker, concertitem },
   data: () => ({
     date: "",
     band: null,

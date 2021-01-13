@@ -8,7 +8,7 @@
       <div class="ticket_price">Ticket price: {{ price }}$</div>
     </div>
     <div class="concert_footer">
-      <button @click="">Reserve</button>
+      <button @click="reserve(id, name, band_name, price)">Reserve</button>
     </div>
   </div>
 </template>
@@ -16,7 +16,17 @@
 <script>
 export default {
   name: "concert_item",
-  props: ["name", "price", "band_name"]
+  props: ["id", "name", "price", "band_name"],
+  methods: {
+    reserve(concert_id, concert_name, band_name, ticket_price) {
+      this.$store.dispatch("reservation/moveToReservation", {
+        concert_id,
+        concert_name,
+        band_name,
+        ticket_price,
+      });
+    },
+  },
 };
 </script>
 

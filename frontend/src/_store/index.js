@@ -8,6 +8,9 @@ import { bands } from "./bands.module";
 import { concertsByDate } from "./concerts.module";
 import { concerts } from "./concerts.module";
 import { registration } from "./registration.module";
+import { reservation } from "./reservation.module";
+import { payment } from "./payment.module";
+import { reservations } from "./reservations.module";
 
 Vue.use(Vuex);
 
@@ -19,6 +22,9 @@ export const store = new Vuex.Store({
     bands,
     concertsByDate,
     concerts,
-    registration
+    registration,
+    reservation,
+    payment,
+    reservations
   }
 });

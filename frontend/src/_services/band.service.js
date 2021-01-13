@@ -10,7 +10,7 @@ function getAll() {
     method: "GET"
   };
 
-  return fetch('/Band', requestOptions).then(handleResponse);
+  return fetch('/api/Band', requestOptions).then(handleResponse);
 };
 
 function create(name) {
@@ -20,7 +20,7 @@ function create(name) {
     body: JSON.stringify({name})
   };
 
-  return fetch('/Band/create', requestOptions).then(handleResponse);
+  return fetch('/api/Band/create', requestOptions).then(handleResponse);
 };
 
 function remove(id) {
@@ -30,7 +30,7 @@ function remove(id) {
     body: JSON.stringify({id})
   };
 
-  return fetch('/Band/remove', requestOptions).then(handleResponse);
+  return fetch('/api/Band/remove', requestOptions).then(handleResponse);
 };
 
 function update(id, name) {
@@ -40,7 +40,7 @@ function update(id, name) {
     body: JSON.stringify({id, name})
   };
 
-  return fetch('/Band/update', requestOptions).then(handleResponse);
+  return fetch('/api/Band/update', requestOptions).then(handleResponse);
 };
 
 function handleResponse(response) {

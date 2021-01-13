@@ -7,10 +7,10 @@
             {{ alert.message }}
           </div>
           <div>
-            <h1 id="registration">Rejestracja</h1>
+            <h1 id="registration">Registration</h1>
             <form @submit.prevent="handleSubmit">
               <div class="form-group">
-                <label for="username">Nazwa użytkownika</label>
+                <label for="username">Username</label>
                 <input
                   type="text"
                   v-model="username"
@@ -19,11 +19,11 @@
                   :class="{ 'is-invalid': submitted && !username }"
                 />
                 <div v-show="submitted && !username" class="invalid-feedback">
-                  Nazwa użytkownika jest wymagana
+                  Username is required
                 </div>
               </div>
               <div class="form-group">
-                <label for="password">Hasło</label>
+                <label for="password">Password</label>
                 <input
                   type="password"
                   v-model="password"
@@ -32,7 +32,7 @@
                   :class="{ 'is-invalid': submitted && !password }"
                 />
                 <div v-show="submitted && !password" class="invalid-feedback">
-                  Nie podano hasła
+                  Password is required
                 </div>
               </div>
               <div class="form-group">
@@ -45,11 +45,11 @@
                   :class="{ 'is-invalid': submitted && !email }"
                 />
                 <div v-show="submitted && !email" class="invalid-feedback">
-                  Nie podano adresu e-mail
+                  E-mail adress is needed
                 </div>
               </div>
               <div class="form-group">
-                <label for="name">Imie</label>
+                <label for="name">Name</label>
                 <input
                   type="text"
                   v-model="name"
@@ -58,11 +58,11 @@
                   :class="{ 'is-invalid': submitted && !name }"
                 />
                 <div v-show="submitted && !name" class="invalid-feedback">
-                  Nie podano imienia
+                  Name is needed
                 </div>
               </div>
               <div class="form-group">
-                <label for="surname">Nazwisko</label>
+                <label for="surname">Surname</label>
                 <input
                   type="text"
                   v-model="surname"
@@ -71,12 +71,12 @@
                   :class="{ 'is-invalid': submitted && !surname }"
                 />
                 <div v-show="submitted && !surname" class="invalid-feedback">
-                  Nie podano imienia
+                  Name is needed
                 </div>
               </div>
               <div class="form-group">
                 <button class="btn btn-primary" :disabled="signingIn">
-                  Zatwierdź
+                  Confirm
                 </button>
                 <img
                   v-show="signingIn"

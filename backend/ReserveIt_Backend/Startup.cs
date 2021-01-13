@@ -38,6 +38,7 @@ namespace ReserveIt_Backend
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IBandService, BandService>();
             services.AddTransient<IConcertService, ConcertService>();
+            services.AddTransient<IPaymentService, PaymentService>();
         }
 
         private static void ConfigureRepositories(IServiceCollection services)
@@ -45,10 +46,12 @@ namespace ReserveIt_Backend
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IConcertRepository, ConcertRepository>();
             services.AddSingleton<IBandRepository, BandRepository>();
+            services.AddSingleton<IPaymentRepository, PaymentRepository>();
+            services.AddSingleton<IReservationRepository, ReservationRepository>();
         }
 
 
-        public IConfiguration Configuration { get; }
+        internal static IConfiguration Configuration { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -91,6 +94,7 @@ namespace ReserveIt_Backend
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "ReserveIt_Backend v1"));
             }
+            app.UsePathBase(new PathString("/api"));
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

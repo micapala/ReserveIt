@@ -1,18 +1,18 @@
-﻿using ReserveIt_Backend.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using ReserveIt_Backend.Models;
 
-namespace ReserveIt_Backend.Models
+namespace ReserveIt_Backend.Entities
 {
-    public class Reservation
+    public class Payment
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int Id { get; set; }
+
+        [Required()]
+        public string ControlString { get; set; }
 
         [Required()]
         [ForeignKey("UserId")]
@@ -23,10 +23,9 @@ namespace ReserveIt_Backend.Models
         public Concert Concert { get; set; }
 
         [Required()]
-        [ForeignKey("PaymentId")]
-        public Payment Payment { get; set; }
+        public float TotalAmount { get; set; }
 
         [Required()]
-        public DateTime ReservationDate { get; set; }
+        public float TotalDue { get; set; }
     }
 }

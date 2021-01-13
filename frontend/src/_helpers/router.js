@@ -2,11 +2,12 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import HomePage from "../home/HomePage";
-import UserPage from "../home/User";
 import ConcertSelector from "../home/ConcertSelector";
 import LoginPage from "../login/LoginPage";
 import SignIn from "../login/SignIn";
 import AdminPage from "../admin/Admin";
+import ReservationPage from "../home/ReservationPage";
+import ReservationsPage from "../home/ReservationsPage";
 
 Vue.use(Router);
 
@@ -16,13 +17,14 @@ export const router = new Router({
     { path: "/", component: HomePage },
     { path: "/login", component: LoginPage },
     { path: "/sign", component: SignIn },
-    { path: "/user", component: UserPage },
     {
       path: "/admin",
       component: AdminPage,
       meta: { authorize: ["Admin"] }
     },
     { path: "/concerts", component: ConcertSelector },
+    { path: "/reserve", component: ReservationPage },
+    { path: "/reservations", component: ReservationsPage },
 
     // otherwise redirect to home
     { path: "*", redirect: "/" }
