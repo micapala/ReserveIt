@@ -11,8 +11,8 @@ namespace ReserveIt_Backend.Dtos.Concert
 
         public String BandName { get; set; }
 
-        public DateTime Date { get; set; }
+        public float Price { get; set; }
 
-        public float TicketPrice { get; set; }
+        public DateTime Date { get; set; }
     }
 }

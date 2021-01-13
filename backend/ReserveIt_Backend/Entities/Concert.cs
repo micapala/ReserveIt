@@ -14,14 +14,17 @@ namespace ReserveIt_Backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required()]
         public String Name { get; set; }
 
-        [NotNull]
+        [Required()]
         [ForeignKey("BandId")]
         public Band Band { get; set; }
 
+        [Required()]
         public DateTime Date { get; set; }
 
+        [Required()]
         public float TicketPrice { get; set; }
     }
 }

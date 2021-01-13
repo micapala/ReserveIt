@@ -27,14 +27,12 @@ namespace ReserveIt_Backend.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] CreateBandRequest request)
         {
-            var result = await _bandService.Create(request);
+            var err = await _bandService.Create(request);
 
-            if (result == null)
-                return StatusCode(400);
-
-            return CreatedAtAction(
-                nameof(GetAll),
-                new { id = result.Id }, result);
+            if (err == null)
+                return StatusCode(StatusCodes.Status201Created);
+            else
+                return BadRequest(new { message = err });
         }
 
         [HttpPost("remove")]
@@ -45,9 +43,9 @@ namespace ReserveIt_Backend.Controllers
             var result = await _bandService.Remove(request);
 
             if (result)
-                return StatusCode(202);
+                return StatusCode(StatusCodes.Status202Accepted);
             else
-                return StatusCode(400);
+                return StatusCode(StatusCodes.Status400BadRequest);
         }
 
         [HttpPost("update")]
@@ -55,14 +53,12 @@ namespace ReserveIt_Backend.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update([FromBody] Band band)
         {
-            var result = await _bandService.Update(band);
+            var err = await _bandService.Update(band);
 
-            if (result == null)
-                return StatusCode(400);
-
-            return CreatedAtAction(
-                nameof(GetAll),
-                new { id = result.Id }, result);
+            if (err == null)
+                return StatusCode(StatusCodes.Status202Accepted);
+            else
+                return BadRequest(new { message = err });
         }
 
         [HttpGet]

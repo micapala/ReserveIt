@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ReserveIt_Backend.Dtos.Concert;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Repositories.Interfaces;
@@ -24,6 +25,8 @@ namespace ReserveIt_Backend.Repositories
         {
             var success = false;
 
+            _databaseContext.Entry(concert).State = EntityState.Added; // Hack: Auto keygen is bugged
+
             _databaseContext.Concerts.Add(concert);
 
             var numberOfItemsCreated = await _databaseContext.SaveChangesAsync();
@@ -33,16 +36,19 @@ namespace ReserveIt_Backend.Repositories
             return success;
         }
 
-        public async Task<bool> Update(Concert concert)
+        public async Task<String> Update(Concert concert)
         {
-            _databaseContext.Concerts.Update(concert);
+            var old = _databaseContext.Concerts.Find(concert.Id);
+            if (old == null) return "No concert with id: " + concert.Id;
+
+            _databaseContext.Entry(old).CurrentValues.SetValues(concert);
 
             var numberOfItemsUpdated = await _databaseContext.SaveChangesAsync();
 
             if (numberOfItemsUpdated == 1)
-                return true;
+                return null;
 
-            return false;
+            return "Failed to save changes";
         }
 
         public async Task<bool> Remove(Concert concert)

@@ -3,8 +3,7 @@ import { bandService } from "../_services";
 export const bands = {
   namespaced: true,
   state: {
-    all: {},
-    status: {}
+    all: {}
   },
   actions: {
     getAll({ commit }) {
@@ -15,37 +14,31 @@ export const bands = {
         error => commit("getAllFailure", error)
       );
     },
-    create({ commit, dispatch }, { name }) {
-      commit("statusRequest");
-
+    create({ dispatch }, { name }) {
       bandService.create(name).then(
         success => {
-          commit("statusSuccess", "Created successfully"),
+          dispatch("alert/success", "Band created successfully", {root: true});
           dispatch("getAll")
         },
-        error => commit("statusFailure", error)
+        error => dispatch("alert/error", error, {root: true})
       );
     },
-    update({ commit, dispatch }, { id, name }) {
-      commit("statusRequest");
-
+    update({ dispatch }, { id, name }) {
       bandService.update(id, name).then(
         success => {
-          commit("statusSuccess", "Updated successfully"),
+          dispatch("alert/success", "Band updated successfully", {root: true});
           dispatch("getAll")
         },
-        error => commit("statusFailure", error)
+        error => dispatch("alert/error", error, {root: true})
       );
     },
-    remove({ commit, dispatch }, { id }) {
-      commit("statusRequest");
-
+    remove({ dispatch }, { id }) {
       bandService.remove(id).then(
         success => {
-          commit("statusSuccess", "Removed successfully"),
+          dispatch("alert/success", "Band deleted successfully", {root: true});
           dispatch("getAll")
         },
-        error => commit("statusFailure", error)
+        error => dispatch("alert/error", error, {root: true})
       );
     },
   },
@@ -58,15 +51,6 @@ export const bands = {
     },
     getAllFailure(state, error) {
       state.all = { error };
-    },
-    statusRequest(state) {
-      state.status = { loading: true };
-    },
-    statusSuccess(state, success) {
-      state.status = { success };
-    },
-    statusFailure(state, error) {
-      state.status = { error };
     },
   }
 };

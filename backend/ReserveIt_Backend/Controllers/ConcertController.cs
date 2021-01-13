@@ -26,11 +26,12 @@ namespace ReserveIt_Backend.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] CreateConcertRequest request)
         {
-            var result = await _concertService.Create(request);
+            var err = await _concertService.Create(request);
 
-            return CreatedAtAction(
-                nameof(GetAll),
-                new { id = result.Id }, result);
+            if (err == null)
+                return StatusCode(StatusCodes.Status201Created);
+            else
+                return BadRequest(new { message = err });
         }
 
         [HttpPost("remove")]
@@ -41,9 +42,9 @@ namespace ReserveIt_Backend.Controllers
             var result = await _concertService.Remove(request);
 
             if (result)
-                return StatusCode(202);
+                return StatusCode(StatusCodes.Status202Accepted);
             else
-                return StatusCode(400);
+                return StatusCode(StatusCodes.Status400BadRequest);
         }
 
         [HttpPost("update")]
@@ -51,11 +52,12 @@ namespace ReserveIt_Backend.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update([FromBody] UpdateConcertRequest request)
         {
-            var result = await _concertService.Update(request);
+            var err = await _concertService.Update(request);
 
-            return CreatedAtAction(
-                nameof(GetAll),
-                new { id = result.Id }, result);
+            if (err == null)
+                return StatusCode(StatusCodes.Status202Accepted);
+            else
+                return BadRequest(new { message = err });
         }
 
         [HttpGet("byDate/{date}")]

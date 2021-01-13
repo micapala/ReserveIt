@@ -39,11 +39,11 @@ namespace ReserveIt_Backend.Services
             return result;
         }
 
-        async Task<Band> IBandService.Create(CreateBandRequest request)
+        async Task<String> IBandService.Create(CreateBandRequest request)
         {
             var identical = _repository.GetByName(request.Name);
             if (identical != null)
-                return null;
+                return "Band named " + request.Name + " already exists";
 
             Band band = new Band
             {
@@ -51,10 +51,10 @@ namespace ReserveIt_Backend.Services
             };
 
             var success = await _repository.Create(band);
-            if (success)
-                return band;
-            else
-                return null;
+            if (!success)
+                return "Failed to save changes";
+            
+            return null;
         }
 
         async Task<bool> IBandService.Remove(DeleteRequest request)
@@ -66,17 +66,17 @@ namespace ReserveIt_Backend.Services
             return success;
         }
 
-        async Task<Band> IBandService.Update(Band band)
+        async Task<String> IBandService.Update(Band band)
         {
             var identical = _repository.GetByName(band.Name);
             if (identical != null)
-                return null;
+                return "Band named " + band.Name + " already exists";
 
-            var success = await _repository.Update(band);
-            if (success)
-                return band;
-            else
+            var err = await _repository.Update(band);
+            if (err == null)
                 return null;
+            else
+                return err;
         }
     }
 }

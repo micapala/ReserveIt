@@ -1,4 +1,6 @@
 <template>
+  <div>
+  <div v-if="alert.message" :class="`alert ${alert.type}`">{{ alert.message }}</div>
   <div class="admin_page">
     <div class="entity">
       <div class="entity_header">
@@ -17,11 +19,7 @@
               v-model="ID"
               name="ID"
               class="form-control"
-              :class="{ 'is-invalid' : submitted && !ID }"
             />
-            <div v-show="submitted && !ID" class="invalid-feedback">
-              ID is required!
-            </div>
           </div>
           <div class="form-group">
             <label for="name">Name</label>
@@ -85,6 +83,7 @@
     <bandPicker v-model="band"></bandPicker>
     <concertPicker v-model="concert"></concertPicker>
   </div>
+  </div>
 </template>
 
 <script>
@@ -102,7 +101,7 @@ export default {
     price: null,
     date: null,
     selected: "band",
-    submitted: false
+    submitted: false,
   }),
   watch: {
     band: function() {
@@ -132,11 +131,26 @@ export default {
             id: ID,
             name: name
           });
+        if(this.selected == "concert" && name && bandName && price && date)
+          this.$store.dispatch("concerts/update", {
+            id: ID,
+            name: name,
+            bandName: bandName,
+            price: price,
+            date: date,
+          });
       } else {
       // CREATE
         if(this.selected == "band" && name)
           this.$store.dispatch("bands/create", {
             name: name
+          });
+        if(this.selected == "concert" && name && bandName && price && date)
+          this.$store.dispatch("concerts/create", {
+            name: name,
+            bandName: bandName,
+            price: price,
+            date: date,
           });
       }
     },
@@ -144,10 +158,12 @@ export default {
       this.submitted = true;
       const { ID } = this;
       if(ID) {
-        if(this.selected == "band")
+        if(this.selected == "band") {
           this.$store.dispatch("bands/remove", { id: ID });
-        if(this.selected == "concert") {}
-          //this.$store.dispatch("concerts/remove", {ID});
+          this.message = "Deleted";
+        }
+        if(this.selected == "concert")
+          this.$store.dispatch("concerts/remove", { id: ID });
       }
     },
     selectedBand() {
@@ -166,6 +182,11 @@ export default {
       this.date = null;
     }
   },
+  computed: {
+    alert() {
+      return this.$store.state.alert;
+    },
+  },
 };
 </script>
 
@@ -177,6 +198,13 @@ export default {
   justify-content: space-evenly;
   margin-top: 5%;
   color: var(--font-color);
+}
+.alert {
+  max-width: 960px;
+  margin: 2rem auto;
+  text-align: center;
+  box-shadow: 0px 14px 45px rgba(0, 0, 0, 0.25),
+    0px 10px 18px rgba(0, 0, 0, 0.22);
 }
 .entity {
   margin: 2rem;

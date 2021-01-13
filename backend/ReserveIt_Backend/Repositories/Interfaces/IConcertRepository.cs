@@ -17,7 +17,7 @@ namespace ReserveIt_Backend.Repositories.Interfaces
 
         Task<bool> Remove(Concert concert);
 
-        Task<bool> Update(Concert concert);
+        Task<String> Update(Concert concert);
 
         Concert GetById(int Id);
     }

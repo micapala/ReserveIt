@@ -16,31 +16,35 @@ namespace ReserveIt_Backend.Services
     {
         private readonly IConcertRepository _repository;
 
+        private readonly IBandRepository _bandRepository;
+
         private readonly AppSettings _appSettings;
 
-        public ConcertService(IConcertRepository repository, IOptions<AppSettings> appSettings)
+        public ConcertService(IConcertRepository repository, IBandRepository bandRepository, IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
             _repository = repository;
+            _bandRepository = bandRepository;
         }
 
-        public async Task<Concert> Create(CreateConcertRequest request)
+        public async Task<String> Create(CreateConcertRequest request)
         {
-            //Band band = // TODO
+            Band band = _bandRepository.GetByName(request.BandName);
+            if (band == null) return "Band named " + request.BandName + " not found";
 
             Concert concert = new Concert
             {
                 Name = request.Name,
-                //Band = band.name,
+                Band = band,
                 Date = request.Date,
-                TicketPrice = request.TicketPrice,
+                TicketPrice = request.Price,
             };
 
             var success = await _repository.Create(concert);
-            if (success)
-                return concert;
-            else
-                return null;
+            if (!success)
+                return "Failed to save changes";
+
+            return null;
         }
 
         async Task<bool> IConcertService.Remove(DeleteRequest request)
@@ -52,23 +56,25 @@ namespace ReserveIt_Backend.Services
             return success;
         }
 
-        public async Task<Concert> Update(UpdateConcertRequest request)
+        public async Task<String> Update(UpdateConcertRequest request)
         {
-            //Band band = context.bands.findByName()??? // TODO
+            Band band = _bandRepository.GetByName(request.BandName);
+            if (band == null) return "Band named " + request.BandName + " not found";
 
             Concert concert = new Concert
             {
+                Id = request.Id,
                 Name = request.Name,
-                //Band = band.name,
+                Band = band,
                 Date = request.Date,
-                TicketPrice = request.TicketPrice,
+                TicketPrice = request.Price,
             };
 
-            var success = await _repository.Update(concert);
-            if (success)
-                return concert;
-            else
+            var err = await _repository.Update(concert);
+            if (err == null)
                 return null;
+            else
+                return err;
         }
 
         public IQueryable<ConcertResponse> GetAll()

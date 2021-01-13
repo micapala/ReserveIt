@@ -31,6 +31,8 @@ function create(name, bandName, price, date) {
     body: JSON.stringify({name, bandName, price, date})
   };
 
+  console.log(requestOptions);
+
   return fetch('/Concert/create', requestOptions).then(handleResponse);
 };
 

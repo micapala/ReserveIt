@@ -12,11 +12,11 @@ namespace ReserveIt_Backend.Services.Interfaces
     {
         IQueryable<Band> GetAll();
 
-        Task<Band> Create(CreateBandRequest request);
+        Task<String> Create(CreateBandRequest request);
 
         Task<bool> Remove(DeleteRequest request);
 
-        Task<Band> Update(Band band);
+        Task<String> Update(Band band);
 
         Band GetById(int Id);
     }

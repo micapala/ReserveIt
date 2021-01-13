@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Repositories.Interfaces;
 using System;
@@ -23,6 +24,8 @@ namespace ReserveIt_Backend.Repositories
         {
             var success = false;
 
+            _databaseContext.Entry(band).State = EntityState.Added; // Hack: Auto keygen is bugged
+
             _databaseContext.Bands.Add(band);
 
             var numberOfItemsCreated = await _databaseContext.SaveChangesAsync();
@@ -32,16 +35,19 @@ namespace ReserveIt_Backend.Repositories
             return success;
         }
 
-        public async Task<bool> Update(Band band)
+        public async Task<String> Update(Band band)
         {
-            _databaseContext.Bands.Update(band);
+            var old = _databaseContext.Bands.Find(band.Id);
+            if (old == null) return "No band with id: " + band.Id;
+
+            _databaseContext.Entry(old).CurrentValues.SetValues(band);
 
             var numberOfItemsUpdated = await _databaseContext.SaveChangesAsync();
 
             if (numberOfItemsUpdated == 1)
-                return true;
+                return null;
 
-            return false;
+            return "Failed to save changes";
         }
 
         public async Task<bool> Remove(Band band)

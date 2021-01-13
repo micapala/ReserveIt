@@ -12,11 +12,11 @@ namespace ReserveIt_Backend.Services.Interfaces
     {
         IQueryable<ConcertResponse> GetAll();
 
-        Task<Concert> Create(CreateConcertRequest request);
+        Task<String> Create(CreateConcertRequest request);
 
         Task<bool> Remove(DeleteRequest request);
 
-        Task<Concert> Update(UpdateConcertRequest request);
+        Task<String> Update(UpdateConcertRequest request);
 
         Concert GetById(int Id);
 
