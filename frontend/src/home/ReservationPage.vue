@@ -1,5 +1,8 @@
 <template>
   <div class="main_column">
+    <div v-if="alert.message"
+         :class="`alert ${alert.type}`"
+    >{{ alert.message }}</div>
     <h1>Reservation for {{ concertName }}</h1>
     <h2>Band name: {{ bandName }}</h2>
     <h2>Ticket price: {{ ticketPrice }} PLN</h2>
@@ -30,6 +33,9 @@ export default {
     reservationCreated() {
       return this.$store.state.reservation.reservationCreated;
     },
+    alert() {
+      return this.$store.state.alert;
+    },
   },
   methods: {
     createReservation() {
@@ -45,3 +51,13 @@ export default {
   },
 };
 </script>
+
+<style lang="css" scoped>
+.alert {
+  max-width: 560px;
+  margin: 1rem auto;
+  text-align: center;
+  box-shadow: 0px 14px 45px rgba(0, 0, 0, 0.25),
+    0px 10px 18px rgba(0, 0, 0, 0.22);
+}
+</style>

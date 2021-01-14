@@ -31,6 +31,7 @@ export const reservation = {
       reservationService.reserve(userName, concertId).then(
         paymentId => {
           commit("reservationSuccess", paymentId.result);
+          dispatch("alert/success", "Concert reserved", { root: true });
         },
         error => {
           commit("reservationFailure", error);
