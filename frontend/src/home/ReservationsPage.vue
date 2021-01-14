@@ -8,8 +8,7 @@
         <th>Concert Date</th>
         <th>Concert Name</th>
         <th>Ticket price</th>
-        <th>Amount paid</th>
-        <th>Retry Payment</th>
+        <th>Status</th>
       </tr>
 
       <tr
@@ -20,8 +19,13 @@
         <td>{{ item.concertDate.split('T')[0] }}</td>
         <td>{{ item.concertName }}</td>
         <td>{{ item.ticketPrice }}</td>
-        <td>{{ item.amountPaid }}</td>
-        <td> <a :href="item.paymentLink" class="button" target="_blank">Retry payment</a> </td>
+        <!--td>{{ item.amountPaid }}</td-->
+        <td>
+          <div id="Paid" v-if="item.amountPaid > 0" class="button">Paid</div>
+          <a v-if="item.amountPaid == 0" :href="item.paymentLink" target="_blank">
+            <div class="button">Retry payment</div>
+          </a>
+        </td>
       </tr>
     </table>
   </div>
@@ -56,9 +60,29 @@ th {
   line-height: 1.5rem;
 }
 td {
-  padding: 6px 32px 6px 24px;
+  padding: 6px 32px 6px 10px;
 }
 tr:hover {
   background-color: var(--purple-color);
+}
+.button {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--primary-color);
+  opacity: 0.9;
+  background: transparent;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.button:hover {
+  opacity: 1;
+}
+a:hover {
+  text-decoration: none;
+}
+div#Paid {
+  cursor: auto;
 }
 </style>
