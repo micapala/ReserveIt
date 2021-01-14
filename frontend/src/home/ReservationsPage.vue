@@ -9,6 +9,7 @@
         <th>Concert Name</th>
         <th>Ticket price</th>
         <th>Amount paid</th>
+        <th>Retry Payment</th>
       </tr>
 
       <tr
@@ -20,6 +21,7 @@
         <td>{{ item.concertName }}</td>
         <td>{{ item.ticketPrice }}</td>
         <td>{{ item.amountPaid }}</td>
+        <td> <a :href="item.paymentLink" class="button" target="_blank">Retry payment</a> </td>
       </tr>
     </table>
   </div>

@@ -3,13 +3,13 @@
     <div v-if="alert.message"
          :class="`alert ${alert.type}`"
     >{{ alert.message }}</div>
-    <h1>Reservation for {{ concertName }}</h1>
-    <h2>Band name: {{ bandName }}</h2>
-    <h2>Ticket price: {{ ticketPrice }} PLN</h2>
-    <button class="btn btn-primary" @click="createReservation()">
+    <h1>Reservation for {{ reservation.concert_name }}</h1>
+    <h2>Band name: {{ reservation.band_name }}</h2>
+    <h2>Ticket price: {{ reservation.ticket_price }} PLN</h2>
+    <button v-if="!reservation.paymentId" class="btn btn-primary" @click="createReservation()">
       Confirm reservation
     </button>
-    <button class="btn btn-primary" @click="goToPayment()">
+    <button v-if="reservation.paymentId" class="btn btn-primary" @click="goToPayment()">
       Go to payment
     </button>
   </div>
@@ -18,20 +18,8 @@
 <script>
 export default {
   computed: {
-    concertId() {
-      return this.$store.state.reservation.concert_id;
-    },
-    concertName() {
-      return this.$store.state.reservation.concert_name;
-    },
-    bandName() {
-      return this.$store.state.reservation.band_name;
-    },
-    ticketPrice() {
-      return this.$store.state.reservation.ticket_price;
-    },
-    reservationCreated() {
-      return this.$store.state.reservation.reservationCreated;
+    reservation() {
+      return this.$store.state.reservation;
     },
     alert() {
       return this.$store.state.alert;

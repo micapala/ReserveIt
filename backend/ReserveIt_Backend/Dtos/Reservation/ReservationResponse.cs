@@ -16,5 +16,7 @@ namespace ReserveIt_Backend.Dtos.Reservation
         public float TicketPrice { get; set; }
 
         public float AmountPaid { get; set; }
+
+        public string PaymentLink { get; set; }
     }
 }

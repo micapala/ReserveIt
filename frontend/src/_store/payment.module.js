@@ -1,4 +1,6 @@
 import { paymentService } from "../_services";
+import { router } from "../_helpers";
+
 
 export const payment = {
   namespaced: true,
@@ -12,7 +14,9 @@ export const payment = {
 
       paymentService.goToPayment(controlString).then(
         (response) => {
-          window.location.href = response.paymentUrl;
+          router.push("/reservations");
+          var win = window.open(response.paymentUrl, '_blank');
+          win.focus();
         },
         (error) => {
           commit("reservationFailure", error);

@@ -14,7 +14,7 @@ namespace ReserveIt_Backend.Services
 {
     public class ReservationService : IReservationService
     {
-
+        private readonly IPaymentService _paymentService;
         private readonly IUserRepository _userRepository;
         private readonly IConcertRepository _concertRepository;
         private readonly IPaymentRepository _paymentRepository;
@@ -22,13 +22,14 @@ namespace ReserveIt_Backend.Services
 
         private readonly AppSettings _appSettings;
 
-        public ReservationService(IPaymentRepository paymentRepository, IUserRepository userRepository, IConcertRepository concertRepository, IReservationRepository reservationRepository, IOptions<AppSettings> appSettings)
+        public ReservationService(IPaymentService paymentService, IPaymentRepository paymentRepository, IUserRepository userRepository, IConcertRepository concertRepository, IReservationRepository reservationRepository, IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
             _userRepository = userRepository;
             _concertRepository = concertRepository;
             _paymentRepository = paymentRepository;
             _reservationRepository = reservationRepository;
+            _paymentService = paymentService;
         }
         public async Task<string> Create(ReservationRequest request)
         {
@@ -80,7 +81,8 @@ namespace ReserveIt_Backend.Services
                                ConcertName = c.Concert.Name,
                                ConcertDate = c.Concert.Date,
                                TicketPrice = c.Concert.TicketPrice,
-                               AmountPaid = c.Payment.TotalAmount - c.Payment.TotalDue
+                               AmountPaid = c.Payment.TotalAmount - c.Payment.TotalDue,
+                               PaymentLink = _paymentService.GetPaymentLink(c.Payment.ControlString).PaymentUrl
                            };
 
             return reservations;
