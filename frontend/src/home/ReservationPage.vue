@@ -1,21 +1,15 @@
 <template>
-  <h1>
-    <div>Reservation for concert {{ concertName }}</div>
-    <div>Band name: {{ bandName }}</div>
-    <div>Ticket price: {{ ticketPrice }} PLN</div>
-    <md-button
-      class="md-raised md-primary"
-      :md-ripple="false"
-      @click="createReservation()"
-      >Confirm reservation</md-button
-    >
-    <md-button
-      class="md-raised md-accent"
-      :md-ripple="false"
-      @click="goToPayment()"
-      >Go to payment</md-button
-    >
-  </h1>
+  <div class="main_column">
+    <h1>Reservation for {{ concertName }}</h1>
+    <h2>Band name: {{ bandName }}</h2>
+    <h2>Ticket price: {{ ticketPrice }} PLN</h2>
+    <button class="btn btn-primary" @click="createReservation()">
+      Confirm reservation
+    </button>
+    <button class="btn btn-primary" @click="goToPayment()">
+      Go to payment
+    </button>
+  </div>
 </template>
 
 <script>

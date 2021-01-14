@@ -3,22 +3,24 @@
     <div class="sidebar">
       <calendar v-model="date"></calendar>
       <bandPicker v-model="band"></bandPicker>
+      <concertPicker v-model="concert"></concertPicker>
     </div>
     <div v-if="selected" class="concerts">
       <h1 v-if="selected == 'date'">Concerts on {{ date }}</h1>
       <h1 v-if="selected == 'band'">Concerts with {{ band.name }}</h1>
+      <h1 v-if="selected == 'concert'">Selected Concert</h1>
       <h4 v-if="filteredConcerts.length == 0">No concerts found</h4>
       <span v-if="concerts.error" class="text-danger">
         ERROR: {{ concerts.error }}
       </span>
       <div class="concerts_container" v-if="selected">
         <concertitem
-          v-for="concert in filteredConcerts"
-          v-bind:name="concert.name"
-          v-bind:price="concert.ticketPrice"
-          v-bind:band_name="concert.bandName"
-          v-bind:id="concert.id"
-          v-bind:key="concert.id"
+          v-for="item in filteredConcerts"
+          v-bind:name="item.name"
+          v-bind:price="item.ticketPrice"
+          v-bind:band_name="item.bandName"
+          v-bind:id="item.id"
+          v-bind:key="item.id"
         ></concertitem>
       </div>
     </div>
@@ -28,13 +30,15 @@
 <script>
 import calendar from "./Calendar";
 import bandPicker from "./BandPicker";
+import concertPicker from "./ConcertPicker";
 import concertitem from "./concert-item";
 
 export default {
-  components: { calendar, bandPicker, concertitem },
+  components: { calendar, bandPicker, concertPicker, concertitem },
   data: () => ({
     date: "",
     band: null,
+    concert: null,
     selected: ""
   }),
   computed: {
@@ -42,9 +46,15 @@ export default {
       return this.$store.state.concerts.all;
     },
     filteredConcerts() {
-      if (this.selected == 'date') return this.concertsByDate(this.date);
-      else if (this.selected == 'band') return this.concertsByBand(this.band.name);
-      else return [];
+      switch(this.selected) {
+        case "date": return this.concertsByDate(this.date);
+        break;
+        case "band": return this.concertsByBand(this.band.name);
+        break;
+        case "concert": return [this.concert];
+        break;
+        default: return [];
+      }
     }
   },
   created() {
@@ -57,6 +67,10 @@ export default {
     },
     band: function() {
       this.selected = "band";
+      const { band } = this;
+    },
+    concert: function() {
+      this.selected = "concert";
       const { band } = this;
     },
   },
@@ -84,20 +98,15 @@ export default {
 .concert_selection {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 5%;
-  margin-left: 5%;
+  justify-content: space-between;
 }
 .concerts {
-  color: var(--font-color);
   text-align: center;
-  margin-left: 2rem;
+  max-width: calc(100% - 260px);
 }
 .concerts_container {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: space-between;
-  margin-left: 2rem;
-  margin-top: 1rem;
+  align-items: center;
 }
 </style>

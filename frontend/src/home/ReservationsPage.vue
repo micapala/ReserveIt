@@ -1,40 +1,27 @@
 <template>
-  <div>
-    <md-table md-card>
-      <md-table-toolbar>
-        <h1 class="md-title">Reservations</h1>
-      </md-table-toolbar>
+  <div class="main_column">
+    <h1>Reservations</h1>
+    
+    <table>
+      <tr>
+        <th>Reservation Date</th>
+        <th>Concert Date</th>
+        <th>Concert Name</th>
+        <th>Ticket price</th>
+        <th>Amount paid</th>
+      </tr>
 
-      <md-table-row>
-        <md-table-head md-numeric>Reservation Date</md-table-head>
-        <md-table-head>Concert Date</md-table-head>
-        <md-table-head>Concert Name</md-table-head>
-        <md-table-head>Ticket price</md-table-head>
-        <md-table-head>Amount paid</md-table-head>
-      </md-table-row>
-
-      <md-table-row
+      <tr
         v-for="(item, i) in reservations"
         v-bind:key="i"
-        slot="md-table-row"
       >
-        <md-table-cell md-label="ID" md-sort-by="reservationDate" md-numeric>{{
-          item.reservationDate
-        }}</md-table-cell>
-        <md-table-cell md-label="Name" md-sort-by="concertName">{{
-          item.concertDate
-        }}</md-table-cell>
-        <md-table-cell md-label="Email" md-sort-by="concertDate">{{
-          item.concertName
-        }}</md-table-cell>
-        <md-table-cell md-label="Gender" md-sort-by="ticketPrice">{{
-          item.ticketPrice
-        }}</md-table-cell>
-        <md-table-cell md-label="Job Title" md-sort-by="amountPaid">{{
-          item.amountPaid
-        }}</md-table-cell>
-      </md-table-row>
-    </md-table>
+        <td>{{ item.reservationDate.split('.')[0].replace('T', ' ') }}</td>
+        <td>{{ item.concertDate.split('T')[0] }}</td>
+        <td>{{ item.concertName }}</td>
+        <td>{{ item.ticketPrice }}</td>
+        <td>{{ item.amountPaid }}</td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -51,3 +38,25 @@ export default {
   },
 };
 </script>
+
+<style lang="css" scoped>
+table {
+  width: 100%;
+  box-shadow: 0px 14px 45px rgba(0, 0, 0, 0.25),
+    0px 10px 18px rgba(0, 0, 0, 0.22);
+}
+th {
+  background-color: var(--primary-color);
+  padding: 15px 10px;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: normal;
+  line-height: 1.5rem;
+}
+td {
+  padding: 6px 32px 6px 24px;
+}
+tr:hover {
+  background-color: var(--purple-color);
+}
+</style>

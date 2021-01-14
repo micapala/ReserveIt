@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <item title="Home" link="/"></item>
-    <item title="Concerts" link="/concerts"></item>
+    <!--item title="Concerts" link="/concerts"></item-->
     <item v-if="!user" title="Login" link="/login"></item>
     <item v-if="user"  title="Reservations" link="/reservations"></item>
     <item v-if="user"  title="Logout" link="/login"></item>

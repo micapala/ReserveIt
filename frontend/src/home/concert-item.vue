@@ -5,7 +5,7 @@
     </div>
     <div class="concert_body">
       <div class="band_name">Playing {{ band_name }}</div>
-      <div class="ticket_price">Ticket price: {{ price }}$</div>
+      <div class="ticket_price">Ticket price: {{ price }} PLN</div>
     </div>
     <div class="concert_footer">
       <button @click="reserve(id, name, band_name, price)">Reserve</button>
@@ -33,7 +33,7 @@ export default {
 <style lang="css" scoped>
 .concert_item {
   margin-top: 2rem;
-  width: 70%;
+  width: 360px;
   top: 100%;
   box-shadow: 0px 14px 45px rgba(0, 0, 0, 0.25),
     0px 10px 18px rgba(0, 0, 0, 0.22);

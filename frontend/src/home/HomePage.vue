@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!--div class="col-sm-6 offset-sm-3"-->
-    <div class="homepage">
+    <div class="main_column">
       <img id="main" src="../../assets/concert.gif" />
       <concertSelection></concertSelection>
     </div>
@@ -17,12 +16,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.homepage {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 2rem 2.5rem;
-}
 img#main {
   width: 100%;
+  padding-bottom: 2rem;
 }
 </style>

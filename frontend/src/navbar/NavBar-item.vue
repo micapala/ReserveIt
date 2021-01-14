@@ -1,7 +1,5 @@
 <template>
-  <div class="navbar-item">
-    <router-link :to="link" tag="h4">{{ title }}</router-link>
-  </div>
+  <router-link :to="link" tag="div" class="navbar_item">{{ title }}</router-link>
 </template>
 
 <script>
@@ -12,15 +10,17 @@ export default {
 </script>
 
 <style lang="css">
-.navbar-item {
+.navbar_item {
   display: block;
-  color: var(--font-color);
   text-align: center;
   padding: 0.5rem 2rem;
   cursor: pointer;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
 }
 
-.navbar-item:hover {
+.navbar_item:hover {
   background-color: var(--primary-color);
   color: black;
 }

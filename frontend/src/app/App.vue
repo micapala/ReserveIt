@@ -29,6 +29,7 @@ export default {
 </script>
 
 <style lang="css">
+/* Global css rules */
 :root {
   --primary-color: #bf616a;
   --background-color: #2b303b;
@@ -42,10 +43,30 @@ export default {
 }
 body {
   background-color: var(--background-color);
+  color: var(--font-color);
 }
 .header {
   background-color: var(--primary-color);
+  color: black;
   padding: 10px;
   text-align: center;
+}
+.main_column {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+}
+.btn-primary {
+  color: var(--font-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-primary:hover {
+  background-color: var(--purple-color);
+  border-color: var(--purple-color);
+}
+.forms_container {
+  max-width: 560px;
+  margin: 2rem auto;
 }
 </style>

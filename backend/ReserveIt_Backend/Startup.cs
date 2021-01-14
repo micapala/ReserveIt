@@ -143,19 +143,7 @@ namespace ReserveIt_Backend
             };
 
             context.Users.Add(testUser1);
-
-            var testBand1 = new Models.Band
-            {
-                Name = "Ryder and The Straight Bustas"
-            };
-
-            context.Bands.Add(testBand1);
-
             context.SaveChanges();
-
-            foreach (Models.Concert concert in context.Concerts) {
-                if(concert.Band == null)Console.WriteLine(concert.Name);
-            }
         }
 
         private static void AddRandomBands(ApiContext context)
@@ -192,13 +180,13 @@ namespace ReserveIt_Backend
             Random random = new Random();
             for (var day = new DateTime(2021, 1, 18); day.Date <= new DateTime(2021, 1, 31); day = day.AddDays(1))
             {
-                int num = random.Next(1, 5);
+                int num = random.Next(2, 7);
                 for (int i = 0; i < num; i++)
                 {
                     int i1 = random.Next(0, plants.Length);
                     int i2 = random.Next(0, types.Length);
                     int bandID = random.Next(1, context.Bands.Count());
-                    float price = (float)random.Next(10, 50);
+                    float price = 0.99f + (float)random.Next(10, 50);
 
                     var concert = new Models.Concert
                     {
