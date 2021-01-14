@@ -19,7 +19,11 @@
               v-model="ID"
               name="ID"
               class="form-control"
+              :class="{ 'is-invalid' : submittedDelete && !ID }"
             />
+            <div v-show="submittedDelete && !ID" class="invalid-feedback">
+              ID is required!
+            </div>
           </div>
           <div class="form-group">
             <label for="name">Name</label>
@@ -102,6 +106,7 @@ export default {
     date: null,
     selected: "band",
     submitted: false,
+    submittedDelete: false,
   }),
   watch: {
     band: function() {
@@ -109,6 +114,8 @@ export default {
       const { band } = this;
       this.ID = band.id;
       this.name = band.name;
+      this.submitted = false;
+      this.submittedDelete = false;
     },
     concert: function() {
       this.selected = "concert";
@@ -118,6 +125,8 @@ export default {
       this.bandName = concert.bandName;
       this.price = concert.ticketPrice;
       this.date = concert.date.split('T')[0];
+      this.submitted = false;
+      this.submittedDelete = false;
     }
   },
   methods: {
@@ -155,7 +164,7 @@ export default {
       }
     },
     handleDelete() {
-      this.submitted = true;
+      this.submittedDelete = true;
       const { ID } = this;
       if(ID) {
         if(this.selected == "band") {
@@ -180,6 +189,8 @@ export default {
       this.bandName = null;
       this.price = null;
       this.date = null;
+      this.submitted = false;
+      this.submittedDelete = false;
     }
   },
   computed: {

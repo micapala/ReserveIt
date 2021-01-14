@@ -108,5 +108,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: left;
 }
 </style>

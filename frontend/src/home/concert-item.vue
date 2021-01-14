@@ -49,6 +49,9 @@ export default {
   font-size: 1.2rem;
   line-height: 1.5rem;
 }
+.concert_body {
+  text-align: center;
+}
 .ticket_price {
   font-size: 1rem;
   line-height: 1.5rem;
