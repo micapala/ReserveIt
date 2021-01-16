@@ -54,6 +54,7 @@
           <div class="form-group" v-if="selected=='concert'">
             <label for="price">Ticket price</label>
             <input
+              step="0.01"
               type="number"
               v-model="price"
               name="price"
