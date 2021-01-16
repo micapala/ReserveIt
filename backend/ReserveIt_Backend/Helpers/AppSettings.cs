@@ -25,5 +25,11 @@ namespace ReserveIt_Backend.Helpers
         public string DotpayButtontext { get; set; }
 
         public string DotpayType { get; set; }
+
+        public string SmtpHost { get; set; }
+
+        public int SmtpPort { get; set; }
+        public string SmtpUser { get; set; }
+        public string SmtpPass { get; set; }
     }
 }

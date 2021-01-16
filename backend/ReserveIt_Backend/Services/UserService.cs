@@ -13,6 +13,8 @@ using System.Text;
 using ReserveIt_Backend.Helpers;
 using System.Threading.Tasks;
 using ReserveIt_Backend.dtos;
+using System.IO;
+using MimeKit;
 
 namespace ReserveIt_Backend.Services
 {
@@ -20,12 +22,15 @@ namespace ReserveIt_Backend.Services
     {
         private readonly IUserRepository _repository;
 
+        private readonly IEmailService _emailService;
+
         private readonly AppSettings _appSettings;
 
-        public UserService(IUserRepository repository, IOptions<AppSettings> appSettings)
+        public UserService(IUserRepository repository, IEmailService emailService, IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
             _repository = repository;
+            _emailService = emailService;
         }
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
@@ -34,7 +39,6 @@ namespace ReserveIt_Backend.Services
 
             if (user == null) return null;
 
-            // authentication successful so generate jwt token
             var token = generateJwtToken(user);
 
             return new AuthenticateResponse(user, token);
@@ -53,7 +57,28 @@ namespace ReserveIt_Backend.Services
             };
             var success = await _repository.Create(user);
             if (success)
+            {
+                string templatePath = Directory.GetCurrentDirectory()
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "Templates"
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "registration.html";
+
+                var builder = new BodyBuilder();
+
+                using (StreamReader SourceReader = System.IO.File.OpenText(templatePath))
+                {
+                    builder.HtmlBody = SourceReader.ReadToEnd();
+                }
+
+                builder.HtmlBody = string.Format(builder.HtmlBody,
+                    userRequest.name + " " + userRequest.surname,
+                    userRequest.username,
+                    userRequest.password);
+
+                _emailService.Send("michi0987@gmail.com", "Registration completed", builder.ToMessageBody());
                 return user;
+            }
             else
                 return null;
         }

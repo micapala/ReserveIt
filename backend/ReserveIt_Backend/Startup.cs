@@ -39,6 +39,7 @@ namespace ReserveIt_Backend
             services.AddTransient<IBandService, BandService>();
             services.AddTransient<IConcertService, ConcertService>();
             services.AddTransient<IPaymentService, PaymentService>();
+            services.AddTransient<IEmailService, EmailService>();
         }
 
         private static void ConfigureRepositories(IServiceCollection services)
