@@ -76,7 +76,7 @@ namespace ReserveIt_Backend.Services
                     userRequest.username,
                     userRequest.password);
 
-                _emailService.Send("michi0987@gmail.com", "Registration completed", builder.ToMessageBody());
+                _emailService.Send(userRequest.email, "Registration completed", builder.ToMessageBody());
                 return user;
             }
             else
