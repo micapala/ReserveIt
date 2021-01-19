@@ -15,11 +15,11 @@ export const registration = {
 
       userService.register(username, password, email, name, surname).then(
         success => {
-          dispatch("alert/success", "Rejestracja zakończona powodzeniem");
+          dispatch("alert/success", "Rejestracja zakończona powodzeniem", {root: true});
           router.push("/login");
         },
         error => {
-          dispatch("alert/errorw", error);
+          dispatch("alert/error", error, {root: true});
         }
       );
     }

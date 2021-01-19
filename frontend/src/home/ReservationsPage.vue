@@ -18,7 +18,7 @@
         <td>{{ item.reservationDate.split('.')[0].replace('T', ' ') }}</td>
         <td>{{ item.concertDate.split('T')[0] }}</td>
         <td>{{ item.concertName }}</td>
-        <td>{{ item.ticketPrice }}</td>
+        <td>{{ item.ticketPrice }} PLN</td>
         <!--td>{{ item.amountPaid }}</td-->
         <td>
           <div id="Paid" v-if="item.amountPaid > 0" class="button">Paid</div>
