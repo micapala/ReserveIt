@@ -1,5 +1,7 @@
 <template>
-  <router-link :to="link" tag="div" class="navbar_item">{{ title }}</router-link>
+  <router-link :to="link" tag="div" class="navbar_item">{{
+    title
+  }}</router-link>
 </template>
 
 <script>

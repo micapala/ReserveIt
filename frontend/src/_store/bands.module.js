@@ -17,30 +17,36 @@ export const bands = {
     create({ dispatch }, { name }) {
       bandService.create(name).then(
         success => {
-          dispatch("alert/success", "Band created successfully", {root: true});
-          dispatch("getAll")
+          dispatch("alert/success", "Band created successfully", {
+            root: true
+          });
+          dispatch("getAll");
         },
-        error => dispatch("alert/error", error, {root: true})
+        error => dispatch("alert/error", error, { root: true })
       );
     },
     update({ dispatch }, { id, name }) {
       bandService.update(id, name).then(
         success => {
-          dispatch("alert/success", "Band updated successfully", {root: true});
-          dispatch("getAll")
+          dispatch("alert/success", "Band updated successfully", {
+            root: true
+          });
+          dispatch("getAll");
         },
-        error => dispatch("alert/error", error, {root: true})
+        error => dispatch("alert/error", error, { root: true })
       );
     },
     remove({ dispatch }, { id }) {
       bandService.remove(id).then(
         success => {
-          dispatch("alert/success", "Band deleted successfully", {root: true});
-          dispatch("getAll")
+          dispatch("alert/success", "Band deleted successfully", {
+            root: true
+          });
+          dispatch("getAll");
         },
-        error => dispatch("alert/error", error, {root: true})
+        error => dispatch("alert/error", error, { root: true })
       );
-    },
+    }
   },
   mutations: {
     getAllRequest(state) {
@@ -51,7 +57,6 @@ export const bands = {
     },
     getAllFailure(state, error) {
       state.all = { error };
-    },
+    }
   }
 };
-

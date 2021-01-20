@@ -15,7 +15,7 @@ export const reservations = {
         reservations => commit("getAllSuccess", reservations),
         error => commit("getAllFailure", error)
       );
-    },
+    }
   },
   mutations: {
     getAllRequest(state) {
@@ -29,4 +29,3 @@ export const reservations = {
     }
   }
 };
-

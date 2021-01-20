@@ -1,21 +1,30 @@
 <template>
   <div class="main_column">
-    <div v-if="alert.message"
-         :class="`alert ${alert.type}`"
-    >{{ alert.message }}</div>
+    <div v-if="alert.message" :class="`alert ${alert.type}`">
+      {{ alert.message }}
+    </div>
     <h1>Reservation for {{ reservation.concert_name }}</h1>
     <h2>Band name: {{ reservation.band_name }}</h2>
     <h2>Ticket price: {{ reservation.ticket_price }} PLN</h2>
-    <button v-if="!reservation.paymentId" class="btn btn-primary" @click="createReservation()">
+    <button
+      v-if="!reservation.paymentId"
+      class="btn btn-primary"
+      @click="createReservation()"
+    >
       Confirm reservation
     </button>
-    <button v-if="reservation.paymentId" class="btn btn-primary" @click="goToPayment()">
+    <button
+      v-if="reservation.paymentId"
+      class="btn btn-primary"
+      @click="goToPayment()"
+    >
       Go to payment
     </button>
   </div>
 </template>
 
 <script>
+import { router } from "../_helpers";
 export default {
   computed: {
     reservation() {
@@ -23,7 +32,7 @@ export default {
     },
     alert() {
       return this.$store.state.alert;
-    },
+    }
   },
   methods: {
     createReservation() {
@@ -35,10 +44,11 @@ export default {
     goToPayment() {
       var controlString = this.$store.state.reservation.paymentId;
       this.$store.dispatch("payment/goToPayment", { controlString });
-    },
+    }
   },
+  beforeCreate() {},
   watch: {
-    $route(to, from) {
+    $route() {
       this.$store.dispatch("reservation/clear");
     }
   }

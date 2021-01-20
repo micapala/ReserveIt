@@ -1,25 +1,25 @@
 export const reservationService = {
-    reserve,
-    getAll
+  reserve,
+  getAll
 };
 
 function reserve(userLogin, concertId) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userLogin, concertId }),
+    body: JSON.stringify({ userLogin, concertId })
   };
 
   return fetch(`/api/Reservation/create`, requestOptions)
     .then(handleResponse)
-    .then((paymentId) => {
+    .then(paymentId => {
       return paymentId;
     });
 }
 
 function getAll(userName) {
   const requestOptions = {
-    method: "GET",
+    method: "GET"
   };
 
   return fetch(
@@ -29,7 +29,7 @@ function getAll(userName) {
 }
 
 function handleResponse(response) {
-  return response.text().then((text) => {
+  return response.text().then(text => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       const error = (data && data.message) || response.statusText;

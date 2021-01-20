@@ -1,11 +1,10 @@
 import { paymentService } from "../_services";
 import { router } from "../_helpers";
 
-
 export const payment = {
   namespaced: true,
   state: {
-    status: {},
+    status: {}
   },
   actions: {
     goToPayment({ commit, dispatch }, { controlString }) {
@@ -13,17 +12,17 @@ export const payment = {
       console.log(controlString);
 
       paymentService.goToPayment(controlString).then(
-        (response) => {
+        response => {
           router.push("/reservations");
-          var win = window.open(response.paymentUrl, '_blank');
+          var win = window.open(response.paymentUrl, "_blank");
           win.focus();
         },
-        (error) => {
+        error => {
           commit("reservationFailure", error);
           dispatch("alert/error", error, { root: true });
         }
       );
-    },
+    }
   },
   mutations: {
     paymentRequest(state) {
@@ -34,6 +33,6 @@ export const payment = {
     },
     paymentFailure(state, error) {
       state.status = { error };
-    },
-  },
+    }
+  }
 };

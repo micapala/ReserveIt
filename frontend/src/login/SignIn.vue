@@ -97,7 +97,7 @@ export default {
       email: "",
       name: "",
       surname: "",
-      submitted: false,
+      submitted: false
     };
   },
   methods: {
@@ -125,8 +125,7 @@ export default {
     }
   },
   watch: {
-    $route(to, from) {
-      // clear alert on location change
+    $route() {
       this.$store.dispatch("alert/clear");
     }
   }

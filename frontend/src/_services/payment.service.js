@@ -1,21 +1,21 @@
 export const paymentService = {
-  goToPayment,
+  goToPayment
 };
 
 function goToPayment(controlString) {
   const requestOptions = {
-    method: "GET",
+    method: "GET"
   };
 
   return fetch(`/api/Payment/getPaymentLink/${controlString}`, requestOptions)
     .then(handleResponse)
-    .then((paymentLink) => {
+    .then(paymentLink => {
       return paymentLink;
     });
 }
 
 function handleResponse(response) {
-  return response.text().then((text) => {
+  return response.text().then(text => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       const error = (data && data.message) || response.statusText;

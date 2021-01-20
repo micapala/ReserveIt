@@ -18,30 +18,36 @@ export const concerts = {
     create({ dispatch }, { name, bandName, price, date }) {
       concertService.create(name, bandName, price, date).then(
         success => {
-          dispatch("alert/success", "Concert created successfully", {root: true});
-          dispatch("getAll")
+          dispatch("alert/success", "Concert created successfully", {
+            root: true
+          });
+          dispatch("getAll");
         },
-        error => dispatch("alert/error", error, {root: true})
+        error => dispatch("alert/error", error, { root: true })
       );
     },
     update({ dispatch }, { id, name, bandName, price, date }) {
       concertService.update(id, name, bandName, price, date).then(
         success => {
-          dispatch("alert/success", "Concert updated successfully", {root: true});
-          dispatch("getAll")
+          dispatch("alert/success", "Concert updated successfully", {
+            root: true
+          });
+          dispatch("getAll");
         },
-        error => dispatch("alert/error", error, {root: true})
+        error => dispatch("alert/error", error, { root: true })
       );
     },
     remove({ dispatch }, { id }) {
       concertService.remove(id).then(
         success => {
-          dispatch("alert/success", "Concert deleted successfully", {root: true});
-          dispatch("getAll")
+          dispatch("alert/success", "Concert deleted successfully", {
+            root: true
+          });
+          dispatch("getAll");
         },
-        error => dispatch("alert/error", error, {root: true})
+        error => dispatch("alert/error", error, { root: true })
       );
-    },
+    }
   },
   mutations: {
     getAllRequest(state) {
@@ -55,4 +61,3 @@ export const concerts = {
     }
   }
 };
-

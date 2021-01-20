@@ -23,10 +23,10 @@ export default {
         concert_id,
         concert_name,
         band_name,
-        ticket_price,
+        ticket_price
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

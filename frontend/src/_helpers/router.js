@@ -28,7 +28,7 @@ export const router = new Router({
 
     // otherwise redirect to home
     { path: "*", redirect: "/" }
-  ],
+  ]
 });
 
 router.beforeEach((to, from, next) => {

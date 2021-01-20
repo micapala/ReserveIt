@@ -71,7 +71,7 @@
               :class="[
                 'calendar__day',
                 { selected: active(day) },
-                { today: checkToday(day) },
+                { today: checkToday(day) }
               ]"
               v-for="(day, d) in days"
               :key="d"
@@ -92,7 +92,6 @@
 <script>
 import moment from "moment";
 
-
 export default {
   name: "Calendar",
   props: {
@@ -101,10 +100,10 @@ export default {
     classValue: { type: String, default: "" },
     placeholder: { type: String, default: "" },
     yearSelect: { type: Boolean, default: true },
-    monthSelect: { type: Boolean, default: true },
+    monthSelect: { type: Boolean, default: true }
   },
   model: {
-    event: "change",
+    event: "change"
   },
   data() {
     return {
@@ -117,7 +116,7 @@ export default {
       monthValue:
         this.value == "" ? moment().month() : moment(this.value).month(),
       startMonthValue: null,
-      currentDateValue: undefined,
+      currentDateValue: undefined
     };
   },
   computed: {
@@ -167,7 +166,7 @@ export default {
     },
     formatedDate() {
       return this.date.format("dddd, DD MMMM");
-    },
+    }
   },
   methods: {
     active(date) {
@@ -219,8 +218,8 @@ export default {
     setMonthAndYear(month, year) {
       this.monthValue = month;
       this.yearValue = year;
-    },
-  },
+    }
+  }
 };
 </script>
 

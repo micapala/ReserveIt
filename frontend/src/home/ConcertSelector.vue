@@ -46,14 +46,15 @@ export default {
       return this.$store.state.concerts.all;
     },
     filteredConcerts() {
-      switch(this.selected) {
-        case "date": return this.concertsByDate(this.date);
-        break;
-        case "band": return this.concertsByBand(this.band.name);
-        break;
-        case "concert": return [this.concert];
-        break;
-        default: return [];
+      switch (this.selected) {
+        case "date":
+          return this.concertsByDate(this.date);
+        case "band":
+          return this.concertsByBand(this.band.name);
+        case "concert":
+          return [this.concert];
+        default:
+          return [];
       }
     }
   },
@@ -72,19 +73,19 @@ export default {
     concert: function() {
       this.selected = "concert";
       const { band } = this;
-    },
+    }
   },
   methods: {
     concertsByDate(date) {
-      return this.concerts.items.filter((item) => {
-        return item.date.split('T')[0] == date;
+      return this.concerts.items.filter(item => {
+        return item.date.split("T")[0] == date;
       });
     },
     concertsByBand(band) {
-      return this.concerts.items.filter((item) => {
+      return this.concerts.items.filter(item => {
         return item.bandName == band;
       });
-    },
+    }
   }
 };
 </script>

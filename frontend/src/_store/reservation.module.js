@@ -10,7 +10,7 @@ export const reservation = {
     band_name: null,
     ticket_price: null,
     reservation_created: false,
-    paymentId: null,
+    paymentId: null
   },
   actions: {
     moveToReservation(
@@ -21,7 +21,7 @@ export const reservation = {
         concert_id,
         concert_name,
         band_name,
-        ticket_price,
+        ticket_price
       });
       router.push("/reserve");
     },
@@ -41,7 +41,7 @@ export const reservation = {
     },
     clear({ commit }) {
       commit("reservationClear");
-    },
+    }
   },
   mutations: {
     setSelectedConcertInfo(
@@ -69,6 +69,6 @@ export const reservation = {
     reservationClear(state) {
       state.reservation_created = false;
       state.paymentId = null;
-    },
-  },
+    }
+  }
 };

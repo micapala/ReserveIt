@@ -1,7 +1,7 @@
 <template>
   <div class="main_column">
     <h1>Reservations</h1>
-    
+
     <table>
       <tr>
         <th>Reservation Date</th>
@@ -11,18 +11,19 @@
         <th>Status</th>
       </tr>
 
-      <tr
-        v-for="(item, i) in reservations"
-        v-bind:key="i"
-      >
-        <td>{{ item.reservationDate.split('.')[0].replace('T', ' ') }}</td>
-        <td>{{ item.concertDate.split('T')[0] }}</td>
+      <tr v-for="(item, i) in reservations" v-bind:key="i">
+        <td>{{ item.reservationDate.split(".")[0].replace("T", " ") }}</td>
+        <td>{{ item.concertDate.split("T")[0] }}</td>
         <td>{{ item.concertName }}</td>
         <td>{{ item.ticketPrice }} PLN</td>
         <!--td>{{ item.amountPaid }}</td-->
         <td>
           <div id="Paid" v-if="item.amountPaid > 0" class="button">Paid</div>
-          <a v-if="item.amountPaid == 0" :href="item.paymentLink" target="_blank">
+          <a
+            v-if="item.amountPaid == 0"
+            :href="item.paymentLink"
+            target="_blank"
+          >
             <div class="button">Retry payment</div>
           </a>
         </td>
@@ -40,8 +41,8 @@ export default {
   computed: {
     reservations() {
       return this.$store.state.reservations.all.items;
-    },
-  },
+    }
+  }
 };
 </script>
 

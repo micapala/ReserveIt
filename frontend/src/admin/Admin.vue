@@ -1,93 +1,97 @@
 <template>
   <div>
-  <div v-if="alert.message" :class="`alert ${alert.type}`">{{ alert.message }}</div>
-  <div class="admin_page">
-    <div class="entity">
-      <div class="entity_header">
-        <div class="entity_title">Create or update Entities</div>
-      </div>
-      <div class="entity_navbar">
-        <div @click="selectedBand()" class="entity_navbar_item">Band</div>
-        <div @click="selectedConcert()" class="entity_navbar_item">Concert</div>
-      </div>
-      <div class="entity_body">
-        <form @submit.prevent="handleSubmit">
-          <div class="form-group">
-            <label for="ID">ID</label>
-            <input
-              type="number"
-              v-model="ID"
-              name="ID"
-              class="form-control"
-              :class="{ 'is-invalid' : submittedDelete && !ID }"
-            />
-            <div v-show="submittedDelete && !ID" class="invalid-feedback">
-              ID is required!
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input
-              type="text"
-              v-model="name"
-              name="name"
-              class="form-control"
-              :class="{ 'is-invalid' : submitted && !name }"
-            />
-            <div v-show="submitted && !name" class="invalid-feedback">
-              Name is required!
-            </div>
-          </div>
-          <div class="form-group" v-if="selected=='concert'">
-            <label for="bandName">Name of the band playing</label>
-            <input
-              type="text"
-              v-model="bandName"
-              name="bandName"
-              class="form-control"
-              :class="{ 'is-invalid' : submitted && !bandName }"
-            />
-            <div v-show="submitted && !bandName" class="invalid-feedback">
-              Name of the band playing is required!
-            </div>
-          </div>
-          <div class="form-group" v-if="selected=='concert'">
-            <label for="price">Ticket price</label>
-            <input
-              step="0.01"
-              type="number"
-              v-model="price"
-              name="price"
-              class="form-control"
-              :class="{ 'is-invalid' : submitted && !price }"
-            />
-            <div v-show="submitted && !price" class="invalid-feedback">
-              Ticket price is required!
-            </div>
-          </div>
-          <div class="form-group" v-if="selected=='concert'">
-            <label for="date">Date</label>
-            <input
-              type="date"
-              v-model="date"
-              name="date"
-              class="form-control"
-              :class="{ 'is-invalid' : submitted && !date }"
-            />
-            <div v-show="submitted && !date" class="invalid-feedback">
-              Date is required!
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="entity_footer">
-        <button @click="handleSubmit">Create/Update</button>
-        <button @click="handleDelete">Delete</button>
-      </div>
+    <div v-if="alert.message" :class="`alert ${alert.type}`">
+      {{ alert.message }}
     </div>
-    <bandPicker v-model="band"></bandPicker>
-    <concertPicker v-model="concert"></concertPicker>
-  </div>
+    <div class="admin_page">
+      <div class="entity">
+        <div class="entity_header">
+          <div class="entity_title">Create or update Entities</div>
+        </div>
+        <div class="entity_navbar">
+          <div @click="selectedBand()" class="entity_navbar_item">Band</div>
+          <div @click="selectedConcert()" class="entity_navbar_item">
+            Concert
+          </div>
+        </div>
+        <div class="entity_body">
+          <form @submit.prevent="handleSubmit">
+            <div class="form-group">
+              <label for="ID">ID</label>
+              <input
+                type="number"
+                v-model="ID"
+                name="ID"
+                class="form-control"
+                :class="{ 'is-invalid': submittedDelete && !ID }"
+              />
+              <div v-show="submittedDelete && !ID" class="invalid-feedback">
+                ID is required!
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                v-model="name"
+                name="name"
+                class="form-control"
+                :class="{ 'is-invalid': submitted && !name }"
+              />
+              <div v-show="submitted && !name" class="invalid-feedback">
+                Name is required!
+              </div>
+            </div>
+            <div class="form-group" v-if="selected == 'concert'">
+              <label for="bandName">Name of the band playing</label>
+              <input
+                type="text"
+                v-model="bandName"
+                name="bandName"
+                class="form-control"
+                :class="{ 'is-invalid': submitted && !bandName }"
+              />
+              <div v-show="submitted && !bandName" class="invalid-feedback">
+                Name of the band playing is required!
+              </div>
+            </div>
+            <div class="form-group" v-if="selected == 'concert'">
+              <label for="price">Ticket price</label>
+              <input
+                step="0.01"
+                type="number"
+                v-model="price"
+                name="price"
+                class="form-control"
+                :class="{ 'is-invalid': submitted && !price }"
+              />
+              <div v-show="submitted && !price" class="invalid-feedback">
+                Ticket price is required!
+              </div>
+            </div>
+            <div class="form-group" v-if="selected == 'concert'">
+              <label for="date">Date</label>
+              <input
+                type="date"
+                v-model="date"
+                name="date"
+                class="form-control"
+                :class="{ 'is-invalid': submitted && !date }"
+              />
+              <div v-show="submitted && !date" class="invalid-feedback">
+                Date is required!
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="entity_footer">
+          <button @click="handleSubmit">Create/Update</button>
+          <button @click="handleDelete">Delete</button>
+        </div>
+      </div>
+      <bandPicker v-model="band"></bandPicker>
+      <concertPicker v-model="concert"></concertPicker>
+    </div>
   </div>
 </template>
 
@@ -107,7 +111,7 @@ export default {
     date: null,
     selected: "band",
     submitted: false,
-    submittedDelete: false,
+    submittedDelete: false
   }),
   watch: {
     band: function() {
@@ -125,7 +129,7 @@ export default {
       this.name = concert.name;
       this.bandName = concert.bandName;
       this.price = concert.ticketPrice;
-      this.date = concert.date.split('T')[0];
+      this.date = concert.date.split("T")[0];
       this.submitted = false;
       this.submittedDelete = false;
     }
@@ -134,45 +138,45 @@ export default {
     handleSubmit() {
       this.submitted = true;
       const { ID, name, bandName, price, date } = this;
-      if(ID) {
-      // UPDATE
-        if(this.selected == "band" && name)
+      if (ID) {
+        // UPDATE
+        if (this.selected == "band" && name)
           this.$store.dispatch("bands/update", {
             id: ID,
             name: name
           });
-        if(this.selected == "concert" && name && bandName && price && date)
+        if (this.selected == "concert" && name && bandName && price && date)
           this.$store.dispatch("concerts/update", {
             id: ID,
             name: name,
             bandName: bandName,
             price: price,
-            date: date,
+            date: date
           });
       } else {
-      // CREATE
-        if(this.selected == "band" && name)
+        // CREATE
+        if (this.selected == "band" && name)
           this.$store.dispatch("bands/create", {
             name: name
           });
-        if(this.selected == "concert" && name && bandName && price && date)
+        if (this.selected == "concert" && name && bandName && price && date)
           this.$store.dispatch("concerts/create", {
             name: name,
             bandName: bandName,
             price: price,
-            date: date,
+            date: date
           });
       }
     },
     handleDelete() {
       this.submittedDelete = true;
       const { ID } = this;
-      if(ID) {
-        if(this.selected == "band") {
+      if (ID) {
+        if (this.selected == "band") {
           this.$store.dispatch("bands/remove", { id: ID });
           this.message = "Deleted";
         }
-        if(this.selected == "concert")
+        if (this.selected == "concert")
           this.$store.dispatch("concerts/remove", { id: ID });
       }
     },
@@ -197,8 +201,8 @@ export default {
   computed: {
     alert() {
       return this.$store.state.alert;
-    },
-  },
+    }
+  }
 };
 </script>
 
