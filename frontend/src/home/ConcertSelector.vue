@@ -58,9 +58,6 @@ export default {
       }
     }
   },
-  created() {
-    this.$store.dispatch("concerts/getAll");
-  },
   watch: {
     date: function() {
       this.selected = "date";
