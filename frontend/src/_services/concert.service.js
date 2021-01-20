@@ -1,7 +1,6 @@
 //import config from "config";
 
 export const concertService = {
-  getByDate,
   getAll,
   create,
   remove,
@@ -14,14 +13,6 @@ function getAll() {
   };
 
   return fetch(`/api/Concert`, requestOptions).then(handleResponse);
-}
-
-function getByDate(date) {
-  const requestOptions = {
-    method: "GET"
-  };
-
-  return fetch(`/api/Concert/byDate/${date}`, requestOptions).then(handleResponse);
 }
 
 function create(name, bandName, price, date) {

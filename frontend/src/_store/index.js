@@ -5,7 +5,6 @@ import { alert } from "./alert.module";
 import { authentication } from "./authentication.module";
 import { users } from "./users.module";
 import { bands } from "./bands.module";
-import { concertsByDate } from "./concerts.module";
 import { concerts } from "./concerts.module";
 import { registration } from "./registration.module";
 import { reservation } from "./reservation.module";
@@ -20,7 +19,6 @@ export const store = new Vuex.Store({
     authentication,
     users,
     bands,
-    concertsByDate,
     concerts,
     registration,
     reservation,

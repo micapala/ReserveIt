@@ -37,6 +37,11 @@ export default {
       this.$store.dispatch("payment/goToPayment", { controlString });
     },
   },
+  watch: {
+    $route(to, from) {
+      this.$store.dispatch("reservation/clear");
+    }
+  }
 };
 </script>
 

@@ -75,14 +75,5 @@ namespace ReserveIt_Backend.Repositories
             var result = _databaseContext.Concerts.Find(Id);
             return result;
         }
-
-        public IQueryable<Concert> GetByDate(DateTime date)
-        {
-            var result = _databaseContext.Concerts.Where(c => c.Date == date);
-
-
-            
-            return result;
-        }
     }
 }

@@ -19,7 +19,5 @@ namespace ReserveIt_Backend.Services.Interfaces
         Task<String> Update(UpdateConcertRequest request);
 
         Concert GetById(int Id);
-
-        IQueryable<ConcertResponse> GetByDate(DateTime date);
     }
 }

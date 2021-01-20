@@ -60,21 +60,6 @@ namespace ReserveIt_Backend.Controllers
                 return BadRequest(new { message = err });
         }
 
-        [HttpGet("byDate/{date}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetByDate(string date)
-        {
-            var _date = new DateTime();
-            if (DateTime.TryParse(date, out _date))
-            {
-                var result = _concertService.GetByDate(_date);
-
-                return Ok(result);
-            }
-            
-            return BadRequest(new { message = "Date is incorrect" });
-        }
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()

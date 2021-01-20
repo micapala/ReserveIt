@@ -11,8 +11,6 @@ namespace ReserveIt_Backend.Repositories.Interfaces
     {
         IQueryable<Concert> GetAll();
 
-        IQueryable<Concert> GetByDate(DateTime date);
-
         Task<bool> Create(Concert concert);
 
         Task<bool> Remove(Concert concert);

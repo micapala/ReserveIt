@@ -179,7 +179,7 @@ namespace ReserveIt_Backend
             String[] types = { "Festival", "Happening", "Concert", "Event" };
 
             Random random = new Random();
-            for (var day = new DateTime(2021, 1, 18); day.Date <= new DateTime(2021, 1, 31); day = day.AddDays(1))
+            for (var day = new DateTime(2021, 1, 22); day.Date <= new DateTime(2021, 1, 31); day = day.AddDays(1))
             {
                 int num = random.Next(2, 7);
                 for (int i = 0; i < num; i++)
