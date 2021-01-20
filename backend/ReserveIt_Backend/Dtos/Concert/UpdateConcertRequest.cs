@@ -7,8 +7,6 @@ namespace ReserveIt_Backend.Dtos.Concert
 {
     public class UpdateConcertRequest
     {
-        public int Id { get; set; }
-
         public String Name { get; set; }
 
         public String BandName { get; set; }

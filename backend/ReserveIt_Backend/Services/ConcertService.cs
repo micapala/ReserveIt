@@ -47,30 +47,38 @@ namespace ReserveIt_Backend.Services
             return null;
         }
 
-        async Task<bool> IConcertService.Remove(DeleteRequest request)
+        async Task<bool> IConcertService.Remove(int id)
         {
-            var concert = _repository.GetById(request.Id);
+            var concert = _repository.GetById(id);
+
+            if (concert == null)
+                throw new AppException($"Concert with id '{id}' not found");
 
             var success = await _repository.Remove(concert);
 
             return success;
         }
 
-        public async Task<String> Update(UpdateConcertRequest request)
+        public async Task<String> Update(int id, UpdateConcertRequest request)
         {
             Band band = _bandRepository.GetByName(request.BandName);
             if (band == null) return "Band named " + request.BandName + " not found";
 
-            Concert concert = new Concert
+            var concert = _repository.GetById(id);
+
+            if (concert == null)
+                throw new AppException($"Concert with id '{id}' not found");
+
+            Concert updatedConcert = new Concert
             {
-                Id = request.Id,
+                Id = id,
                 Name = request.Name,
                 Band = band,
                 Date = request.Date,
                 TicketPrice = request.Price,
             };
 
-            var err = await _repository.Update(concert);
+            var err = await _repository.Update(updatedConcert);
             if (err == null)
                 return null;
             else

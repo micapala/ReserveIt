@@ -57,22 +57,35 @@ namespace ReserveIt_Backend.Services
             return null;
         }
 
-        async Task<bool> IBandService.Remove(DeleteRequest request)
+        async Task<bool> IBandService.Remove(int id)
         {
-            var band = _repository.GetById(request.Id);
+            var band = _repository.GetById(id);
+
+            if (band == null)
+                throw new AppException($"Band with id '{id}' not found");
 
             var success = await _repository.Remove(band);
             
             return success;
         }
 
-        async Task<String> IBandService.Update(Band band)
+        async Task<String> IBandService.Update(int id, UpdateBandRequest updateBandRequest)
         {
-            var identical = _repository.GetByName(band.Name);
+            var identical = _repository.GetByName(updateBandRequest.Name);
             if (identical != null)
-                return "Band named " + band.Name + " already exists";
+                throw new AppException($"Band named '{updateBandRequest.Name}' already exists");
 
-            var err = await _repository.Update(band);
+            Band band = _repository.GetById(id);
+            if (band == null)
+                throw new AppException($"Could not find Band with id '{id}'");
+
+            Band updatedBand = new Band
+            {
+                Id = id,
+                Name = updateBandRequest.Name
+            };
+
+            var err = await _repository.Update(updatedBand);
             if (err == null)
                 return null;
             else

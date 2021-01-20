@@ -22,17 +22,17 @@ namespace ReserveIt_Backend.Helpers
             _appSettings = appSettings.Value;
         }
 
-        public async Task Invoke(HttpContext context, IUserService userService)
+        public async Task Invoke(HttpContext context, ApiContext apiContext)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                attachUserToContext(context, userService, token);
+                await attachUserToContext(context, apiContext, token);
 
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, IUserService userService, string token)
+        private async Task attachUserToContext(HttpContext context, ApiContext apiContext, string token)
         {
             try
             {
@@ -50,7 +50,8 @@ namespace ReserveIt_Backend.Helpers
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-                context.Items["User"] = userService.GetById(userId);
+
+                context.Items["User"] = await apiContext.Users.FindAsync(userId);
             }
             catch
             {

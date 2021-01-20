@@ -8,38 +8,25 @@ export const concertService = {
 };
 
 function getAll() {
-  const requestOptions = {
-    method: "GET"
-  };
-
-  return fetch(`/api/Concert`, requestOptions).then(handleResponse);
+  return fetch(`/api/Concert/`, requestOptions.get()).then(handleResponse);
 }
 
 function create(name, bandName, price, date) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, bandName, price, date })
-  };
-
-  console.log(requestOptions);
-
-  return fetch("/api/Concert/create", requestOptions).then(handleResponse);
+  return fetch(
+    "/api/Concert/",
+    requestOptions.post({ name, bandName, price, date })
+  ).then(handleResponse);
 }
 
 function remove(id) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id })
-  };
-
-  return fetch("/api/Concert/remove", requestOptions).then(handleResponse);
+  return fetch(`/api/Concert/${id}`, requestOptions.delete()).then(
+    handleResponse
+  );
 }
 
 function update(id, name, bandName, price, date) {
   return fetch(
-    "/api/Concert/update",
-    requestOptions.post({ id, name, bandName, price, date })
+    `/api/Concert/${id}`,
+    requestOptions.put({ name, bandName, price, date })
   ).then(handleResponse);
 }

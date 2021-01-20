@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReserveIt_Backend.Dtos;
 using ReserveIt_Backend.Dtos.band;
+using ReserveIt_Backend.Entities;
+using ReserveIt_Backend.Helpers;
 using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Services.Interfaces;
 
@@ -22,7 +24,7 @@ namespace ReserveIt_Backend.Controllers
             this._bandService = bandService;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] CreateBandRequest request)
@@ -35,12 +37,12 @@ namespace ReserveIt_Backend.Controllers
                 return BadRequest(new { message = err });
         }
 
-        [HttpPost("remove")]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Remove([FromBody] DeleteRequest request)
+        public async Task<IActionResult> Remove(int id)
         {
-            var result = await _bandService.Remove(request);
+            var result = await _bandService.Remove(id);
 
             if (result)
                 return StatusCode(StatusCodes.Status202Accepted);
@@ -48,12 +50,13 @@ namespace ReserveIt_Backend.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest);
         }
 
-        [HttpPost("update")]
+        [Authorize(Role.Admin)]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Update([FromBody] Band band)
+        public async Task<IActionResult> Update(int id, UpdateBandRequest updateBandRequest)
         {
-            var err = await _bandService.Update(band);
+            var err = await _bandService.Update(id, updateBandRequest);
 
             if (err == null)
                 return StatusCode(StatusCodes.Status202Accepted);

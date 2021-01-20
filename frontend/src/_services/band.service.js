@@ -12,19 +12,19 @@ function getAll() {
 }
 
 function create(name) {
-  return fetch("/api/Band/create", requestOptions.post({ name })).then(
+  return fetch("/api/Band/", requestOptions.post({ name })).then(
     handleResponse
   );
 }
 
 function remove(id) {
-  return fetch("/api/Band/remove", requestOptions.post({ id })).then(
+  return fetch(`/api/Band/${id}`, requestOptions.delete()).then(
     handleResponse
   );
 }
 
 function update(id, name) {
-  return fetch("/api/Band/update", requestOptions.post({ id, name })).then(
+  return fetch(`/api/Band/${id}`, requestOptions.put({ name })).then(
     handleResponse
   );
 }

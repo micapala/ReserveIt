@@ -21,7 +21,7 @@ namespace ReserveIt_Backend.Controllers
             this._concertService = concertService;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] CreateConcertRequest request)
@@ -34,12 +34,12 @@ namespace ReserveIt_Backend.Controllers
                 return BadRequest(new { message = err });
         }
 
-        [HttpPost("remove")]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Remove([FromBody] DeleteRequest request)
+        public async Task<IActionResult> Remove(int id)
         {
-            var result = await _concertService.Remove(request);
+            var result = await _concertService.Remove(id);
 
             if (result)
                 return StatusCode(StatusCodes.Status202Accepted);
@@ -47,12 +47,12 @@ namespace ReserveIt_Backend.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest);
         }
 
-        [HttpPost("update")]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Update([FromBody] UpdateConcertRequest request)
+        public async Task<IActionResult> Update(int id, UpdateConcertRequest request)
         {
-            var err = await _concertService.Update(request);
+            var err = await _concertService.Update(id, request);
 
             if (err == null)
                 return StatusCode(StatusCodes.Status202Accepted);

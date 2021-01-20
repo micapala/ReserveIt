@@ -14,9 +14,9 @@ namespace ReserveIt_Backend.Services.Interfaces
 
         Task<String> Create(CreateConcertRequest request);
 
-        Task<bool> Remove(DeleteRequest request);
+        Task<bool> Remove(int id);
 
-        Task<String> Update(UpdateConcertRequest request);
+        Task<String> Update(int id, UpdateConcertRequest request);
 
         Concert GetById(int Id);
     }

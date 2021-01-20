@@ -14,9 +14,9 @@ namespace ReserveIt_Backend.Services.Interfaces
 
         Task<String> Create(CreateBandRequest request);
 
-        Task<bool> Remove(DeleteRequest request);
+        Task<bool> Remove(int id);
 
-        Task<String> Update(Band band);
+        Task<String> Update(int id, UpdateBandRequest band);
 
         Band GetById(int Id);
     }

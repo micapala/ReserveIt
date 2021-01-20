@@ -88,11 +88,6 @@ namespace ReserveIt_Backend.Services
             return reservations;
         }
 
-        public Task<string> Update(string paymentString, float amount)
-        {
-            throw new NotImplementedException();
-        }
-
         static Random random = new Random();
         public static string GetRandomHexNumber(int digits)
         {
