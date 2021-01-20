@@ -38,7 +38,10 @@ export const reservation = {
           dispatch("alert/error", error, { root: true });
         }
       );
-    }
+    },
+    clear({ commit }) {
+      commit("reservationClear");
+    },
   },
   mutations: {
     setSelectedConcertInfo(
@@ -49,6 +52,8 @@ export const reservation = {
       state.concert_name = concert_name;
       state.band_name = band_name;
       state.ticket_price = ticket_price;
+      state.reservation_created = false;
+      state.paymentId = null;
     },
     reservationRequest(state) {
       state.status = { loading: true };
@@ -60,6 +65,10 @@ export const reservation = {
     },
     reservationFailure(state, error) {
       state.status = { error };
+    },
+    reservationClear(state) {
+      state.reservation_created = false;
+      state.paymentId = null;
     },
   },
 };

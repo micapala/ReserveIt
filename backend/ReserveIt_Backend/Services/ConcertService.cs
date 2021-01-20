@@ -94,23 +94,6 @@ namespace ReserveIt_Backend.Services
             return concerts;
         }
 
-        public IQueryable<ConcertResponse> GetByDate(DateTime date)
-        {
-            var result = _repository.GetByDate(date);
-
-            var concerts = from c in result
-                           select new ConcertResponse()
-                           {
-                               Id = c.Id,
-                               Name = c.Name,
-                               BandName = c.Band.Name,
-                               TicketPrice = c.TicketPrice,
-                               Date = c.Date
-                           };
-
-            return concerts;
-        }
-
         public Concert GetById(int Id)
         {
             var result = _repository.GetById(Id);

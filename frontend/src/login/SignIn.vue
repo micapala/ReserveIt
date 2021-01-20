@@ -121,7 +121,7 @@ export default {
       return this.$store.state.alert;
     },
     signingIn() {
-      return this.$store.state.registration.status.signingIn;
+      return this.$store.state.registration.status.loading;
     }
   },
   watch: {
