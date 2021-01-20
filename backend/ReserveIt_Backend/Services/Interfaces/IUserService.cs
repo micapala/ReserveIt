@@ -11,7 +11,7 @@ namespace ReserveIt_Backend.Services.Interfaces
     public interface IUserService
     {
         IQueryable<User> GetAll();
-        Task<User> Register(CreateUserRequest user);
+        void Register(CreateUserRequest user);
 
         AuthenticateResponse Authenticate(AuthenticateRequest model);
 

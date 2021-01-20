@@ -22,12 +22,15 @@ namespace ReserveIt_Backend.Services
     {
         private readonly IUserRepository _repository;
 
+        private readonly ApiContext _context;
+
         private readonly IEmailService _emailService;
 
         private readonly AppSettings _appSettings;
 
-        public UserService(IUserRepository repository, IEmailService emailService, IOptions<AppSettings> appSettings)
+        public UserService(IUserRepository repository, IEmailService emailService, ApiContext apiContext, IOptions<AppSettings> appSettings)
         {
+            _context = apiContext;
             _appSettings = appSettings.Value;
             _repository = repository;
             _emailService = emailService;
@@ -44,8 +47,10 @@ namespace ReserveIt_Backend.Services
             return new AuthenticateResponse(user, token);
         }
 
-        public async Task<User> Register(CreateUserRequest userRequest)
+        public void Register(CreateUserRequest userRequest)
         {
+            if (_context.Users.Any(x => x.Username == userRequest.username))
+                throw new AppException($"User '{userRequest.username}' is already registered");
             User user = new User
             {
                 Username = userRequest.username,
@@ -55,9 +60,8 @@ namespace ReserveIt_Backend.Services
                 Surname = userRequest.surname,
                 Role    = "User"
             };
-            var success = await _repository.Create(user);
-            if (success)
-            {
+
+            _repository.Create(user);
                 string templatePath = Directory.GetCurrentDirectory()
                     + Path.DirectorySeparatorChar.ToString()
                     + "Templates"
@@ -77,10 +81,6 @@ namespace ReserveIt_Backend.Services
                     userRequest.password);
 
                 _emailService.Send(userRequest.email, "Registration completed", builder.ToMessageBody());
-                return user;
-            }
-            else
-                return null;
         }
 
         public IQueryable<User> GetAll()

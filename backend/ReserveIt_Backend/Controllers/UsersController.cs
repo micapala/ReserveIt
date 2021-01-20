@@ -36,13 +36,11 @@ namespace ReserveIt_Backend.Controllers
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] CreateUserRequest user)
+        public IActionResult Create([FromBody] CreateUserRequest user)
         {
-            var result = await _userService.Register(user);
+            _userService.Register(user);
 
-            return CreatedAtAction(
-                nameof(GetAll),
-                new { id = result.Id }, result);
+            return Ok(new { message = "Registration successful." });
         }
 
         [HttpGet]

@@ -87,7 +87,7 @@ namespace ReserveIt_Backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiContext context)
         {
             if (env.IsDevelopment())
             {
@@ -107,13 +107,15 @@ namespace ReserveIt_Backend
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
+            app.UseMiddleware<JwtMiddleware>();
+
             app.UseEndpoints(x => x.MapControllers());
 
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<ApiContext>();
+
                 AddTestData(context);
-            }
+            
 
         }
 
