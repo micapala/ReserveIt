@@ -51,7 +51,7 @@ namespace ReserveIt_Backend.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
 
-                context.Items["User"] = await apiContext.Users.FindAsync(userId);
+                context.Items["Account"] = await apiContext.Users.FindAsync(userId);
             }
             catch
             {

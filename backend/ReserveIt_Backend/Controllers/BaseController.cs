@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using ReserveIt_Backend.Models;
 
 namespace ReserveIt_Backend.Controllers
 {  
     [Controller]
-    public class BaseController : ControllerBase
+    public abstract class BaseController : ControllerBase
     {
-        public User User => (User)HttpContext.Items["User"];
+        public User User => (User)HttpContext.Items["Account"];
     }
 }

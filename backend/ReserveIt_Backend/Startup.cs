@@ -64,7 +64,7 @@ namespace ReserveIt_Backend
             ConfigureRepositories(services);
             services.AddDbContext<ApiContext>();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.IgnoreNullValues = true);
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
@@ -104,6 +104,7 @@ namespace ReserveIt_Backend
 
             app.UseRouting();
             app.UseCors(x => x
+                .SetIsOriginAllowed(origin => true)
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
@@ -114,8 +115,10 @@ namespace ReserveIt_Backend
 
             app.UseEndpoints(x => x.MapControllers());
 
+            app.UseAuthentication();
 
-                AddTestData(context);
+
+            AddTestData(context);
             
 
         }

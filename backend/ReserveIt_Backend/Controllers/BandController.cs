@@ -15,7 +15,7 @@ namespace ReserveIt_Backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class BandController : Controller
+    public class BandController : BaseController
     {
         private readonly IBandService _bandService;
 
@@ -24,6 +24,7 @@ namespace ReserveIt_Backend.Controllers
             this._bandService = bandService;
         }
 
+        [Authorize(Role.Admin)]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -37,6 +38,7 @@ namespace ReserveIt_Backend.Controllers
                 return BadRequest(new { message = err });
         }
 
+        [Authorize(Role.Admin)]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

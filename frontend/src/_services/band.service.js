@@ -18,9 +18,7 @@ function create(name) {
 }
 
 function remove(id) {
-  return fetch(`/api/Band/${id}`, requestOptions.delete()).then(
-    handleResponse
-  );
+  return fetch(`/api/Band/${id}`, requestOptions.delete()).then(handleResponse);
 }
 
 function update(id, name) {

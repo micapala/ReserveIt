@@ -64,10 +64,12 @@ namespace ReserveIt_Backend.Services
             Band band = _bandRepository.GetByName(request.BandName);
             if (band == null) return "Band named " + request.BandName + " not found";
 
-            var concert = _repository.GetById(id);
+            Concert concert = _repository.GetById(id);
 
             if (concert == null)
                 throw new AppException($"Concert with id '{id}' not found");
+            else if (concert.Id == id && concert.Name == request.Name && concert.Date == request.Date && concert.TicketPrice == request.Price)
+                throw new AppException($"Concert with given parameters already exists");
 
             Concert updatedConcert = new Concert
             {

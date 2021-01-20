@@ -6,13 +6,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReserveIt_Backend.Dtos;
 using ReserveIt_Backend.Dtos.Concert;
+using ReserveIt_Backend.Entities;
+using ReserveIt_Backend.Helpers;
+using ReserveIt_Backend.Models;
 using ReserveIt_Backend.Services.Interfaces;
 
 namespace ReserveIt_Backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ConcertController : Controller
+    public class ConcertController : BaseController
     {
         private readonly IConcertService _concertService;
 
@@ -21,9 +24,8 @@ namespace ReserveIt_Backend.Controllers
             this._concertService = concertService;
         }
 
+        [Authorize(Role.Admin)]
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] CreateConcertRequest request)
         {
             var err = await _concertService.Create(request);
@@ -34,6 +36,7 @@ namespace ReserveIt_Backend.Controllers
                 return BadRequest(new { message = err });
         }
 
+        [Authorize(Role.Admin)]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -47,6 +50,7 @@ namespace ReserveIt_Backend.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest);
         }
 
+        [Authorize(Role.Admin)]
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

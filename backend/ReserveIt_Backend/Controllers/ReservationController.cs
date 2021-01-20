@@ -14,7 +14,7 @@ namespace ReserveIt_Backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ReservationController: Controller
+    public class ReservationController: BaseController
     {
 
 
@@ -37,11 +37,13 @@ namespace ReserveIt_Backend.Controllers
         }
 
         [Authorize]
-        [HttpGet("getUserReservations/{login}")]
-        public IActionResult getUserReservations(string login)
+        [HttpGet("getUserReservations/{username}")]
+        public IActionResult getUserReservations(string username)
         {
+            if (User.Username != username)
+                throw new AppException($"Cannot get reservations of user'{username}' while being logged as user'{User.Username}'");
   
-            var result = _reservationService.GetAllUserReservations(login);
+            var result = _reservationService.GetAllUserReservations(username);
 
             return Ok(result);
         }

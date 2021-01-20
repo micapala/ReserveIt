@@ -21,7 +21,7 @@ namespace ReserveIt_Backend.Helpers
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (User)context.HttpContext.Items["User"];
+            var user = (User)context.HttpContext.Items["Account"];
             if (user == null || (_roles.Any() && !_roles.Contains(user.Role)))
             {
                 // not logged in or role not authorized

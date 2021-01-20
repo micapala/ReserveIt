@@ -12,7 +12,7 @@ namespace ReserveIt_Backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         private readonly IUserService _userService;
 

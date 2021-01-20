@@ -13,7 +13,7 @@ namespace ReserveIt_Backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class PaymentController: Controller
+    public class PaymentController: BaseController
     {
 
         private readonly IPaymentService _paymentService;
