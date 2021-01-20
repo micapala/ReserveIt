@@ -44,13 +44,14 @@
             </div>
             <div class="form-group" v-if="selected == 'concert'">
               <label for="bandName">Name of the band playing</label>
-              <input
-                type="text"
+              <select
                 v-model="bandName"
                 name="bandName"
                 class="form-control"
                 :class="{ 'is-invalid': submitted && !bandName }"
-              />
+              >
+                <option v-for="item in sortedBandsAdmin" :key="item.id">{{ item.name }}</option>
+              </select>
               <div v-show="submitted && !bandName" class="invalid-feedback">
                 Name of the band playing is required!
               </div>
@@ -114,24 +115,28 @@ export default {
     submittedDelete: false
   }),
   watch: {
-    band: function() {
-      this.selected = "band";
-      const { band } = this;
-      this.ID = band.id;
-      this.name = band.name;
-      this.submitted = false;
-      this.submittedDelete = false;
+    band: function(newValue, oldValue) {
+      if(newValue && newValue !== oldValue) {
+        this.selected = "band";
+        const { band } = this;
+        this.ID = band.id;
+        this.name = band.name;
+        this.submitted = false;
+        this.submittedDelete = false;
+      }
     },
-    concert: function() {
-      this.selected = "concert";
-      const { concert } = this;
-      this.ID = concert.id;
-      this.name = concert.name;
-      this.bandName = concert.bandName;
-      this.price = concert.ticketPrice;
-      this.date = concert.date.split("T")[0];
-      this.submitted = false;
-      this.submittedDelete = false;
+    concert: function(newValue, oldValue) {
+      if(newValue && newValue !== oldValue) {
+        this.selected = "concert";
+        const { concert } = this;
+        this.ID = concert.id;
+        this.name = concert.name;
+        this.bandName = concert.bandName;
+        this.price = concert.ticketPrice;
+        this.date = concert.date.split("T")[0];
+        this.submitted = false;
+        this.submittedDelete = false;
+      }
     }
   },
   methods: {
@@ -199,6 +204,21 @@ export default {
     }
   },
   computed: {
+    bandsAdmin() {
+      return this.$store.state.bands.all;
+    },
+    sortedBandsAdmin() {
+      return this.bandsAdmin.items.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+        if (fa < fb) {
+          return -1;
+        } else {
+          return 1;
+        }
+        return 0;
+      });
+    },
     alert() {
       return this.$store.state.alert;
     }

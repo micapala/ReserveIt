@@ -58,8 +58,10 @@ export default {
   },
   methods: {
     select(concert) {
-      this.selected = concert;
-      this.$emit("change", concert);
+      if(this.selected != concert) {
+        this.selected = concert;
+        this.$emit("change", concert);
+      }
     },
     active(concert) {
       return this.selected === concert;

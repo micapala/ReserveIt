@@ -58,8 +58,10 @@ export default {
   },
   methods: {
     select(band) {
-      this.selected = band;
-      this.$emit("change", band);
+      if(this.selected != band) {
+        this.selected = band;
+        this.$emit("change", band);
+      }
     },
     active(band) {
       return this.selected === band;
