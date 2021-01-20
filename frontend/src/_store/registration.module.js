@@ -14,7 +14,7 @@ export const registration = {
       commit("registrationRequest");
 
       userService.register(username, password, email, name, surname).then(
-        success => {
+        () => {
           dispatch("alert/success", "Rejestracja zakończona powodzeniem", {
             root: true
           });

@@ -1,25 +1,30 @@
-//import config from "config";
-import { authHeader } from "../_helpers";
+import { requestOptions, handleResponse } from "@/_helpers";
+import { BehaviorSubject } from "rxjs";
+
+const currentUserSubject = new BehaviorSubject(
+  JSON.parse(localStorage.getItem("user"))
+);
 
 export const userService = {
   login,
   logout,
   getAll,
-  register
+  register,
+  get currentUserValue() {
+    return currentUserSubject.value;
+  }
 };
 
 function login(username, password) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password })
-  };
-
-  return fetch(`/api/Users/authenticate`, requestOptions)
+  return fetch(
+    `/api/Users/authenticate`,
+    requestOptions.post({ username, password })
+  )
     .then(handleResponse)
     .then(user => {
       if (user.token) {
         localStorage.setItem("user", JSON.stringify(user));
+        currentUserSubject.next(user);
       }
 
       return user;
@@ -28,40 +33,16 @@ function login(username, password) {
 
 function logout() {
   localStorage.removeItem("user");
+  currentUserSubject.next(null);
 }
 
 function getAll() {
-  const requestOptions = {
-    method: "GET",
-    headers: authHeader()
-  };
-
-  return fetch(`/api/Users`, requestOptions).then(handleResponse);
+  return fetch(`/api/Users`, requestOptions.get()).then(handleResponse);
 }
 
 function register(username, password, email, name, surname) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password, email, name, surname })
-  };
-
-  return fetch(`/api/Users/register`, requestOptions).then(handleResponse);
-}
-
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      if (response.status === 401) {
-        logout();
-        location.reload(true);
-      }
-
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
+  return fetch(
+    `/api/Users/register`,
+    requestOptions.post({ username, password, email, name, surname })
+  ).then(handleResponse);
 }

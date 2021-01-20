@@ -1,4 +1,4 @@
-//import config from "config";
+import { requestOptions, handleResponse } from "@/_helpers";
 
 export const concertService = {
   getAll,
@@ -38,23 +38,8 @@ function remove(id) {
 }
 
 function update(id, name, bandName, price, date) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id, name, bandName, price, date })
-  };
-
-  return fetch("/api/Concert/update", requestOptions).then(handleResponse);
-}
-
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
+  return fetch(
+    "/api/Concert/update",
+    requestOptions.post({ id, name, bandName, price, date })
+  ).then(handleResponse);
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReserveIt_Backend.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -23,6 +24,6 @@ namespace ReserveIt_Backend.Models
 
         public String Surname { get; set; }
 
-        public String Role { get; set; } = "User";
+        public Role Role { get; set; } = Role.User;
     }
 }

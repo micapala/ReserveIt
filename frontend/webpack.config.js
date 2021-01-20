@@ -1,47 +1,51 @@
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var moment = require("moment");
+const path = require("path");
 
 module.exports = {
   mode: "development",
   resolve: {
     extensions: [".js", ".vue"],
+    alias: {
+      "@": path.resolve(__dirname, "src/")
+    }
   },
   module: {
     rules: [
       {
         test: /\.vue?$/,
         exclude: /(node_modules)/,
-        use: "vue-loader",
+        use: "vue-loader"
       },
       {
         test: /\.js?$/,
         exclude: /(node_modules)/,
-        use: "babel-loader",
+        use: "babel-loader"
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: "file-loader",
         options: {
-          name: "[name].[ext]?[hash]",
-        },
+          name: "[name].[ext]?[hash]"
+        }
       },
       {
         test: /\.css$/,
-        use: ["vue-style-loader", "css-loader"],
-      },
-    ],
+        use: ["vue-style-loader", "css-loader"]
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-    }),
+      template: "./src/index.html"
+    })
   ],
   devServer: {
     historyApiFallback: true,
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
-      },
-    },
-  },
+        target: "http://localhost:5000"
+      }
+    }
+  }
 };

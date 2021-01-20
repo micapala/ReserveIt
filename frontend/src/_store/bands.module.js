@@ -16,7 +16,7 @@ export const bands = {
     },
     create({ dispatch }, { name }) {
       bandService.create(name).then(
-        success => {
+        () => {
           dispatch("alert/success", "Band created successfully", {
             root: true
           });
@@ -27,7 +27,7 @@ export const bands = {
     },
     update({ dispatch }, { id, name }) {
       bandService.update(id, name).then(
-        success => {
+        () => {
           dispatch("alert/success", "Band updated successfully", {
             root: true
           });
@@ -38,7 +38,7 @@ export const bands = {
     },
     remove({ dispatch }, { id }) {
       bandService.remove(id).then(
-        success => {
+        () => {
           dispatch("alert/success", "Band deleted successfully", {
             root: true
           });

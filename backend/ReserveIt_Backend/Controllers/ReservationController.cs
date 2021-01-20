@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ReserveIt_Backend.Dtos;
 using ReserveIt_Backend.Dtos.Concert;
 using ReserveIt_Backend.Dtos.Reservation;
+using ReserveIt_Backend.Helpers;
 using ReserveIt_Backend.Services.Interfaces;
 
 namespace ReserveIt_Backend.Controllers
@@ -35,9 +36,11 @@ namespace ReserveIt_Backend.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("getUserReservations/{login}")]
         public IActionResult getUserReservations(string login)
         {
+  
             var result = _reservationService.GetAllUserReservations(login);
 
             return Ok(result);

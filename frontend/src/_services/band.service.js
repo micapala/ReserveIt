@@ -1,3 +1,5 @@
+import { requestOptions, handleResponse } from "@/_helpers";
+
 export const bandService = {
   getAll,
   create,
@@ -6,51 +8,23 @@ export const bandService = {
 };
 
 function getAll() {
-  const requestOptions = {
-    method: "GET"
-  };
-
-  return fetch('/api/Band', requestOptions).then(handleResponse);
-};
+  return fetch("/api/Band", requestOptions.get()).then(handleResponse);
+}
 
 function create(name) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({name})
-  };
-
-  return fetch('/api/Band/create', requestOptions).then(handleResponse);
-};
+  return fetch("/api/Band/create", requestOptions.post({ name })).then(
+    handleResponse
+  );
+}
 
 function remove(id) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({id})
-  };
-
-  return fetch('/api/Band/remove', requestOptions).then(handleResponse);
-};
+  return fetch("/api/Band/remove", requestOptions.post({ id })).then(
+    handleResponse
+  );
+}
 
 function update(id, name) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({id, name})
-  };
-
-  return fetch('/api/Band/update', requestOptions).then(handleResponse);
-};
-
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
-};
+  return fetch("/api/Band/update", requestOptions.post({ id, name })).then(
+    handleResponse
+  );
+}

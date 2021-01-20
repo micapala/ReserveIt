@@ -20,6 +20,7 @@ using ReserveIt_Backend.Services;
 using ReserveIt_Backend.Helpers;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using ReserveIt_Backend.Entities;
 
 namespace ReserveIt_Backend
 {
@@ -128,7 +129,7 @@ namespace ReserveIt_Backend
                 Name = "Administrator",
                 Surname = "Serwisu",
                 Email = "kontakt@ReserveIt.pl",
-                Role = "Admin"
+                Role = Role.Admin
             };
 
             context.Users.Add(admin);

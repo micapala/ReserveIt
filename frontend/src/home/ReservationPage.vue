@@ -46,7 +46,11 @@ export default {
       this.$store.dispatch("payment/goToPayment", { controlString });
     }
   },
-  beforeCreate() {},
+  beforeCreate() {
+    if (!this.$store.state.reservation.band_name) {
+      router.push("/");
+    }
+  },
   watch: {
     $route() {
       this.$store.dispatch("reservation/clear");

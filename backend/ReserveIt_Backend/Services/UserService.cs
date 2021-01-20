@@ -58,7 +58,7 @@ namespace ReserveIt_Backend.Services
                 Email = userRequest.email,
                 Name = userRequest.name,
                 Surname = userRequest.surname,
-                Role    = "User"
+                Role    = Entities.Role.User
             };
 
             _repository.Create(user);

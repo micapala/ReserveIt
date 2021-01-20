@@ -23,7 +23,7 @@ namespace ReserveIt_Backend.Dtos.Authentication
             Name = user.Name;
             Surname = user.Surname;
             Username = user.Username;
-            Role = user.Role;
+            Role = user.Role.ToString();
             Token = token;
         }
     }

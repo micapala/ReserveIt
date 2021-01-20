@@ -26,12 +26,11 @@ namespace ReserveIt_Backend.Controllers
         [HttpPost("updatePaymentStatus")]
         [Consumes("application/x-www-form-urlencoded")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public void updatePaymentStatus([FromForm] IFormCollection data)
+        public IActionResult updatePaymentStatus([FromForm] IFormCollection data)
         {
-            string test1 = data["control"];
-            string test2 = data["operation_amount"];
             _paymentService.Update(data["control"], float.Parse(data["operation_amount"].ToString().Replace('.',',')));
-            Console.WriteLine("test");
+
+            return Ok();
         }
 
         [HttpGet("getPaymentLink/{controlString}")]

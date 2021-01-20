@@ -41,6 +41,7 @@ export default {
       return this.$store.state.concerts.all;
     },
     sortedConcerts() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       return this.concerts.items.sort((a, b) => {
         let fa = a.name.toLowerCase(),
           fb = b.name.toLowerCase();
@@ -49,7 +50,6 @@ export default {
         } else {
           return 1;
         }
-        return 0;
       });
     }
   },

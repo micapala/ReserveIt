@@ -1,5 +1,4 @@
 import { concertService } from "../_services";
-import { alert } from "./alert.module";
 
 export const concerts = {
   namespaced: true,
@@ -17,7 +16,7 @@ export const concerts = {
     },
     create({ dispatch }, { name, bandName, price, date }) {
       concertService.create(name, bandName, price, date).then(
-        success => {
+        () => {
           dispatch("alert/success", "Concert created successfully", {
             root: true
           });
@@ -28,7 +27,7 @@ export const concerts = {
     },
     update({ dispatch }, { id, name, bandName, price, date }) {
       concertService.update(id, name, bandName, price, date).then(
-        success => {
+        () => {
           dispatch("alert/success", "Concert updated successfully", {
             root: true
           });
@@ -39,7 +38,7 @@ export const concerts = {
     },
     remove({ dispatch }, { id }) {
       concertService.remove(id).then(
-        success => {
+        () => {
           dispatch("alert/success", "Concert deleted successfully", {
             root: true
           });
