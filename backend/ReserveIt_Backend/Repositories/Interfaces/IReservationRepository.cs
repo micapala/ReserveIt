@@ -1,4 +1,5 @@
-﻿using ReserveIt_Backend.Models;
+﻿using DinkToPdf.Contracts;
+using ReserveIt_Backend.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace ReserveIt_Backend.Repositories.Interfaces
         Task<bool> Create(Reservation reservation);
 
         IQueryable<Reservation> GetAllUserReservations(string userName);
+
+        Reservation GetById(int id);
     }
 }

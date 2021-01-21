@@ -18,7 +18,13 @@
         <td>{{ item.ticketPrice }} PLN</td>
         <!--td>{{ item.amountPaid }}</td-->
         <td>
-          <div id="Paid" v-if="item.amountPaid > 0" class="button">Paid</div>
+          <button
+            class="button"
+            v-if="item.amountPaid > 0"
+            @click="downloadTicket(item.reservationId)"
+          >
+            Download Ticket
+          </button>
           <a
             v-if="item.amountPaid == 0"
             :href="item.paymentLink"
@@ -41,6 +47,11 @@ export default {
   computed: {
     reservations() {
       return this.$store.state.reservations.all.items;
+    }
+  },
+  methods: {
+    downloadTicket(reservationId) {
+      this.$store.dispatch("reservations/downloadTicket", { reservationId });
     }
   }
 };

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReserveIt_Backend.Dtos.Reservation
+namespace ReserveIt_Backend.Dtos.Ticket
 {
-    public class ReservationResponse
+    public class TicketDetails
     {
-
-        public int ReservationId { get; set; }
         public DateTime ReservationDate { get; set; }
 
         public string ConcertName { get; set; }
@@ -17,10 +15,5 @@ namespace ReserveIt_Backend.Dtos.Reservation
 
         public float TicketPrice { get; set; }
 
-        public float AmountPaid { get; set; }
-
-        public string PaymentLink { get; set; }
-
-        public string TicketLink { get; set; }
     }
 }

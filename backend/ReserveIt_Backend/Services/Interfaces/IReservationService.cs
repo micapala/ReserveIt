@@ -1,4 +1,5 @@
 ﻿using ReserveIt_Backend.Dtos.Reservation;
+using ReserveIt_Backend.Dtos.Ticket;
 using ReserveIt_Backend.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace ReserveIt_Backend.Services.Interfaces
 
         IQueryable<ReservationResponse> GetAllUserReservations(string userLogin);
 
-        
+        TicketFileInfo GenerateTicket(int reservationId);
+
+
     }
 }

@@ -21,6 +21,8 @@ using ReserveIt_Backend.Helpers;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using ReserveIt_Backend.Entities;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 
 namespace ReserveIt_Backend
 {
@@ -63,6 +65,8 @@ namespace ReserveIt_Backend
             ConfigureTransientServices(services);
             ConfigureRepositories(services);
             services.AddDbContext<ApiContext>();
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.IgnoreNullValues = true);
 

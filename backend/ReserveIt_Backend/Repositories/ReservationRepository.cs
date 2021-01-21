@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DinkToPdf.Contracts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ReserveIt_Backend.Models;
 using System;
@@ -37,6 +38,12 @@ namespace ReserveIt_Backend.Repositories.Interfaces
         public IQueryable<Reservation> GetAllUserReservations(string userName)
         {
             var result = _databaseContext.Reservations.Where(r => r.User.Username == userName);
+            return result;
+        }
+
+        public Reservation GetById(int id)
+        {
+            Reservation result = _databaseContext.Reservations.Include(c=> c.Concert).Include(p=> p.Payment).SingleOrDefault(m => m.Id == id);
             return result;
         }
     }

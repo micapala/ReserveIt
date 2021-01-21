@@ -15,6 +15,9 @@ export const reservations = {
         reservations => commit("getAllSuccess", reservations),
         error => commit("getAllFailure", error)
       );
+    },
+    downloadTicket({ commit }, { reservationId }) {
+      reservationService.downloadTicket(reservationId);
     }
   },
   mutations: {

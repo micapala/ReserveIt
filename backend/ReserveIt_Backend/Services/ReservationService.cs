@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Options;
+﻿using DinkToPdf;
+using DinkToPdf.Contracts;
+using Microsoft.Extensions.Options;
 using ReserveIt_Backend.Dtos.Reservation;
+using ReserveIt_Backend.Dtos.Ticket;
 using ReserveIt_Backend.Entities;
 using ReserveIt_Backend.Helpers;
 using ReserveIt_Backend.Models;
@@ -7,6 +10,7 @@ using ReserveIt_Backend.Repositories.Interfaces;
 using ReserveIt_Backend.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,11 +23,13 @@ namespace ReserveIt_Backend.Services
         private readonly IConcertRepository _concertRepository;
         private readonly IPaymentRepository _paymentRepository;
         private readonly IReservationRepository _reservationRepository;
+        private readonly IConverter _converter;
 
         private readonly AppSettings _appSettings;
 
-        public ReservationService(IPaymentService paymentService, IPaymentRepository paymentRepository, IUserRepository userRepository, IConcertRepository concertRepository, IReservationRepository reservationRepository, IOptions<AppSettings> appSettings)
+        public ReservationService(IPaymentService paymentService, IPaymentRepository paymentRepository, IUserRepository userRepository, IConcertRepository concertRepository, IReservationRepository reservationRepository, IConverter converter, IOptions<AppSettings> appSettings)
         {
+            _converter = converter;
             _appSettings = appSettings.Value;
             _userRepository = userRepository;
             _concertRepository = concertRepository;
@@ -77,6 +83,7 @@ namespace ReserveIt_Backend.Services
             var reservations = from c in result
                            select new ReservationResponse()
                            {
+                               ReservationId = c.Id,
                                ReservationDate = c.ReservationDate,
                                ConcertName = c.Concert.Name,
                                ConcertDate = c.Concert.Date,
@@ -86,6 +93,53 @@ namespace ReserveIt_Backend.Services
                            };
 
             return reservations;
+        }
+
+        public TicketFileInfo GenerateTicket(int reservationId)
+        {
+            var result = _reservationRepository.GetById(reservationId);
+
+            TicketDetails reservationResponse = new TicketDetails
+            {
+                ReservationDate = result.ReservationDate,
+                ConcertName = result.Concert.Name,
+                ConcertDate = result.Concert.Date,
+                TicketPrice = result.Concert.TicketPrice,
+            };
+
+
+            var globalSettings = new GlobalSettings
+            {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 10 },
+                DocumentTitle = "PDF Report"
+            };
+
+            var objectSettings = new ObjectSettings
+            {
+                PagesCount = true,
+                HtmlContent = TicketGenerator.GetTicketHTMLString(reservationResponse),
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+            };
+
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+
+            var file = _converter.Convert(pdf);
+
+            TicketFileInfo info = new TicketFileInfo
+            {
+                Data = file,
+                FileName = "Ticket-" + result.Id + ".pdf"
+            };
+            return info;
         }
 
         static Random random = new Random();

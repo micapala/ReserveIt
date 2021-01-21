@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReserveIt_Backend.Dtos;
@@ -17,8 +20,8 @@ namespace ReserveIt_Backend.Controllers
     public class ReservationController: BaseController
     {
 
-
         private readonly IReservationService _reservationService;
+
 
         public ReservationController(IReservationService reservationService)
         {
@@ -47,6 +50,22 @@ namespace ReserveIt_Backend.Controllers
 
             return Ok(result);
         }
-        
+
+        [HttpGet("downloadTicket/{reservationId}")]
+        public IActionResult downloadTicket(int reservationId)
+        {
+            var result = _reservationService.GenerateTicket(reservationId);
+
+            var cd = new System.Net.Mime.ContentDisposition
+            {
+                FileName = result.FileName,
+                Inline = false,
+            };
+            Response.Headers.Add("Content-Disposition", cd.ToString());
+
+            return File(result.Data, "application/pdf");
+
+        }
+
     }
 }
