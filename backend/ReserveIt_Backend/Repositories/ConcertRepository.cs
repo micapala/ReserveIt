@@ -38,17 +38,24 @@ namespace ReserveIt_Backend.Repositories
 
         public async Task<String> Update(Concert concert)
         {
-            var old = _databaseContext.Concerts.Find(concert.Id);
+            Concert old = await _databaseContext.Concerts.Include(c => c.Band).FirstOrDefaultAsync(c => c.Id == concert.Id);
             if (old == null) return "No concert with id: " + concert.Id;
 
-            _databaseContext.Entry(old).CurrentValues.SetValues(concert);
+            old.Name = concert.Name;
+            old.TicketPrice = concert.TicketPrice;
+            old.Date = concert.Date;
+            old.Band = concert.Band;
 
-            var numberOfItemsUpdated = await _databaseContext.SaveChangesAsync();
+            try
+            {
+                await _databaseContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return "Failed to save changes";
+            }
+            return null;
 
-            if (numberOfItemsUpdated == 1)
-                return null;
-
-            return "Failed to save changes";
         }
 
         public async Task<bool> Remove(Concert concert)
@@ -72,7 +79,7 @@ namespace ReserveIt_Backend.Repositories
         public Concert GetById(int Id)
         {
 
-            var result = _databaseContext.Concerts.Find(Id);
+            Concert result = _databaseContext.Concerts.Include(m => m.Band).SingleOrDefault(m => m.Id == Id);
             return result;
         }
     }

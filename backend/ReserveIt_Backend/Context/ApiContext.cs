@@ -23,7 +23,9 @@ namespace ReserveIt_Backend
         {
             modelBuilder.Entity<Concert>()
                 .HasOne(b => b.Band)
-                .WithOne();
+                .WithMany()
+                .HasForeignKey("BandId");
+
         }
     }
 }

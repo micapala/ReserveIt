@@ -68,7 +68,7 @@ namespace ReserveIt_Backend.Services
 
             if (concert == null)
                 throw new AppException($"Concert with id '{id}' not found");
-            else if (concert.Id == id && concert.Name == request.Name && concert.Date == request.Date && concert.TicketPrice == request.Price)
+            else if (concert.Id == id && concert.Name == request.Name && concert.Date == request.Date && concert.TicketPrice == request.Price && concert.Band.Name == request.BandName)
                 throw new AppException($"Concert with given parameters already exists");
 
             Concert updatedConcert = new Concert
