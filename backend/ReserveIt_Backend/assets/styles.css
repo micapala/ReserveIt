@@ -1,0 +1,54 @@
+﻿.concert_header {
+  padding: 15px 10px;
+  background: #bf616a;
+  color: #eff1f5;
+  text-transform: uppercase;
+  height: 24px;
+}
+
+.concert_body {
+  text-align: center;
+  color: #eff1f5;
+}
+
+
+.concert_name {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.item {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  background-color: #2b303b;
+  padding: 3px;
+}
+
+.concert_barcode {
+  width: 100px;
+  background: white;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  align-items: center;
+}
+
+.image {
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.barcode {
+  display: block;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 310px;
+  max-width: 80px;
+}
+
